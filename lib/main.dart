@@ -481,10 +481,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 );
 
-                                const rightColumn = Column(
+                                final rightColumn = Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Latest Offers',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -492,38 +492,74 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.black87,
                                       ),
                                     ),
-                                    SizedBox(height: 15),
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Email address',
-                                        hintStyle: TextStyle(fontSize: 14),
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                      ),
+                                    const SizedBox(height: 15),
+                                    LayoutBuilder(
+                                      builder: (context, constraints) {
+                                        final isNarrow = constraints.maxWidth < 300;
+                                        
+                                        if (isNarrow) {
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const TextField(
+                                                decoration: InputDecoration(
+                                                  hintText: 'Email address',
+                                                  hintStyle: TextStyle(fontSize: 14),
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              PurpleButton(
+                                                text: 'SUBSCRIBE',
+                                                onPressed: () {},
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                        
+                                        return Row(
+                                          children: [
+                                            const Expanded(
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                  hintText: 'Email address',
+                                                  hintStyle: TextStyle(fontSize: 14),
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            PurpleButton(
+                                              text: 'SUBSCRIBE',
+                                              onPressed: () {},
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
-                                    SizedBox(height: 10),
-                                    Text('Subscribe (Placeholder for Button)'),
                                   ],
                                 );
 
                                 if (isNarrow) {
-                                  return const Column(
+                                  return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       leftColumn,
-                                      SizedBox(height: 24),
+                                      const SizedBox(height: 24),
                                       middleColumn,
-                                      SizedBox(height: 24),
+                                      const SizedBox(height: 24),
                                       rightColumn,
                                     ],
                                   );
                                 }
 
-                                return const Row(
+                                return Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(child: leftColumn),
-                                    Expanded(child: middleColumn),
+                                    const Expanded(child: leftColumn),
+                                    const Expanded(child: middleColumn),
                                     Expanded(child: rightColumn),
                                   ],
                                 );
@@ -703,6 +739,32 @@ class _HomeScreenState extends State<HomeScreen> {
           const Divider(height: 1, thickness: 0.75),
         ],
       ),
+    );
+  }
+}
+
+class PurpleButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final EdgeInsets padding;
+
+  const PurpleButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF4d2963),
+        foregroundColor: Colors.white,
+        padding: padding,
+      ),
+      child: Text(text),
     );
   }
 }
