@@ -495,11 +495,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(height: 15),
                                     LayoutBuilder(
                                       builder: (context, constraints) {
-                                        final isNarrow = constraints.maxWidth < 300;
+                                        final shouldStack = isNarrow;
                                         
-                                        if (isNarrow) {
+                                        if (shouldStack) {
                                           return Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
                                             children: [
                                               const TextField(
                                                 decoration: InputDecoration(
@@ -510,9 +510,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10),
-                                              PurpleButton(
-                                                text: 'SUBSCRIBE',
-                                                onPressed: () {},
+                                              SizedBox(
+                                                width: double.infinity,
+                                                height: 48,
+                                                child: PurpleButton(
+                                                  text: 'SUBSCRIBE',
+                                                  onPressed: () {},
+                                                ),
                                               ),
                                             ],
                                           );
@@ -531,9 +535,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                             const SizedBox(width: 10),
-                                            PurpleButton(
-                                              text: 'SUBSCRIBE',
-                                              onPressed: () {},
+                                            SizedBox(
+                                              height: 48,
+                                              child: PurpleButton(
+                                                text: 'SUBSCRIBE',
+                                                onPressed: () {},
+                                              ),
                                             ),
                                           ],
                                         );
@@ -762,9 +769,15 @@ class PurpleButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
         padding: padding,
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
