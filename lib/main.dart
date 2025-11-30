@@ -49,14 +49,14 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Header
             Container(
-              height: 100,
+              height: 135,
               color: Colors.white,
               child: Column(
                 children: [
                   // Top banner
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                     color: const Color(0xFF4d2963),
                     child: const Text(
                       'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                   // Main header
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
                           GestureDetector(
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                             },
                             child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: 18,
+                              height: 27,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
@@ -100,8 +100,8 @@ class HomeScreen extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(
                                     Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
+                                    size: 27,
+                                    color: Colors.black,
                                   ),
                                   padding: const EdgeInsets.all(8),
                                   constraints: const BoxConstraints(
@@ -113,8 +113,8 @@ class HomeScreen extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(
                                     Icons.person_outline,
-                                    size: 18,
-                                    color: Colors.grey,
+                                    size: 27,
+                                    color: Colors.black,
                                   ),
                                   padding: const EdgeInsets.all(8),
                                   constraints: const BoxConstraints(
@@ -126,8 +126,8 @@ class HomeScreen extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(
                                     Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
+                                    size: 27,
+                                    color: Colors.black,
                                   ),
                                   padding: const EdgeInsets.all(8),
                                   constraints: const BoxConstraints(
@@ -139,8 +139,8 @@ class HomeScreen extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(
                                     Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
+                                    size: 27,
+                                    color: Colors.black,
                                   ),
                                   padding: const EdgeInsets.all(8),
                                   constraints: const BoxConstraints(
