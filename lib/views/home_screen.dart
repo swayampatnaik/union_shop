@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/views/about_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void navigateToProduct(BuildContext context) {
     Navigator.pushNamed(context, '/product');
+  }
+
+  void navigateToAbout(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AboutScreen()),
+    );
   }
 
   void placeholderCallbackForButtons() {
@@ -157,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     child: const Text('SALE!'),
                                                   ),
                                                   TextButton(
-                                                    onPressed: placeholderCallbackForButtons,
+                                                    onPressed: () => navigateToAbout(context),
                                                     child: const Text('About'),
                                                   ),
                                                 ],
@@ -700,7 +708,23 @@ class _HomeScreenState extends State<HomeScreen> {
           InkWell(
             onTap: () {
               _toggleMenu();
-              // Handle menu item tap here
+              if (title == 'About') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
+                return;
+              }
+
+              if (title == 'Home') {
+                navigateToHome(context);
+                return;
+              }
+
+              if (title == 'Shop') {
+                navigateToProduct(context);
+                return;
+              }
+
+              // fallback for other items
+              placeholderCallbackForButtons();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 25),
