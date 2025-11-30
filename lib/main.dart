@@ -155,69 +155,121 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           );
                                         },
+                                        ),
                                       ),
-                                    ),
-                                    const Spacer(),
-                                    ConstrainedBox(
-                                      constraints: const BoxConstraints(maxWidth: 600),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.search,
-                                              size: 27,
-                                              color: Colors.black,
-                                            ),
-                                            padding: const EdgeInsets.all(8),
-                                            constraints: const BoxConstraints(
-                                              minWidth: 32,
-                                              minHeight: 32,
-                                            ),
-                                            onPressed: _toggleSearch,
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.person_outline,
-                                              size: 27,
-                                              color: Colors.black,
-                                            ),
-                                            padding: const EdgeInsets.all(8),
-                                            constraints: const BoxConstraints(
-                                              minWidth: 32,
-                                              minHeight: 32,
-                                            ),
-                                            onPressed: placeholderCallbackForButtons,
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.shopping_bag_outlined,
-                                              size: 27,
-                                              color: Colors.black,
-                                            ),
-                                            padding: const EdgeInsets.all(8),
-                                            constraints: const BoxConstraints(
-                                              minWidth: 32,
-                                              minHeight: 32,
-                                            ),
-                                            onPressed: placeholderCallbackForButtons,
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.menu,
-                                              size: 27,
-                                              color: Colors.black,
-                                            ),
-                                            padding: const EdgeInsets.all(8),
-                                            constraints: const BoxConstraints(
-                                              minWidth: 32,
-                                              minHeight: 32,
-                                            ),
-                                            onPressed: _toggleMenu,
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: Builder(builder: (context) {
+                                          final isWide = MediaQuery.of(context).size.width > 800;
+
+                                          if (isWide) {
+                                            return Center(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  TextButton(
+                                                    onPressed: () => navigateToHome(context),
+                                                    child: const Text('Home'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: placeholderCallbackForButtons,
+                                                    child: const Text('Shop'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: placeholderCallbackForButtons,
+                                                    child: const Text('The Print Shack'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: placeholderCallbackForButtons,
+                                                    child: const Text('SALE!'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: placeholderCallbackForButtons,
+                                                    child: const Text('About'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
+
+                                          return const SizedBox.shrink();
+                                        }),
                                       ),
-                                    ),
+
+                                      ConstrainedBox(
+                                        constraints: const BoxConstraints(maxWidth: 1000),
+                                        child: Builder(
+                                          builder: (context) {
+                                            final isWide = MediaQuery.of(context).size.width > 800;
+
+                                            if (_isMenuOpen && isWide) {
+                                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                if (mounted) setState(() => _isMenuOpen = false);
+                                              });
+                                            }
+
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    Icons.search,
+                                                    size: 27,
+                                                    color: Colors.black,
+                                                  ),
+                                                  padding: const EdgeInsets.all(8),
+                                                  constraints: const BoxConstraints(
+                                                    minWidth: 32,
+                                                    minHeight: 32,
+                                                  ),
+                                                  onPressed: _toggleSearch,
+                                                ),
+
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    Icons.person_outline,
+                                                    size: 27,
+                                                    color: Colors.black,
+                                                  ),
+                                                  padding: const EdgeInsets.all(8),
+                                                  constraints: const BoxConstraints(
+                                                    minWidth: 32,
+                                                    minHeight: 32,
+                                                  ),
+                                                  onPressed: placeholderCallbackForButtons,
+                                                ),
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    Icons.shopping_bag_outlined,
+                                                    size: 27,
+                                                    color: Colors.black,
+                                                  ),
+                                                  padding: const EdgeInsets.all(8),
+                                                  constraints: const BoxConstraints(
+                                                    minWidth: 32,
+                                                    minHeight: 32,
+                                                  ),
+                                                  onPressed: placeholderCallbackForButtons,
+                                                ),
+
+                                                if (!isWide)
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.menu,
+                                                      size: 27,
+                                                      color: Colors.black,
+                                                    ),
+                                                    padding: const EdgeInsets.all(8),
+                                                    constraints: const BoxConstraints(
+                                                      minWidth: 32,
+                                                      minHeight: 32,
+                                                    ),
+                                                    onPressed: _toggleMenu,
+                                                  ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ),
                                   ],
                                 ),
                         ),
