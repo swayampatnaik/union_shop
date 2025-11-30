@@ -292,14 +292,151 @@ class HomeScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // stack into one column on narrow screens (breakpoint = 600)
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 600;
+
+                      const leftColumn = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Opening Hours',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Text(
+                            '\n❄️ Winter Break Closure Dates ❄️\n \nClosing 4pm 19/12/2025\n \nReopening 10am 05/01/2026\n \nLast post date: 12pm 18/12/2025\n',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Text(
+                            '- - - - - - - - - - - - - - - - - -',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Text(
+                            '\n(Term Time)\n \nMonday - Friday 10am - 4pm\n \n(Outside of Term Time / Consolidation Weeks)\n \nMonday - Friday 10am - 3pm\n \nPurchase online 24/7\n',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      );
+
+                      const middleColumn = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Help and Information',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text('Search'),
+                          SizedBox(height: 10),
+                          Text('Terms & Conditions of Sale Policy'),
+                        ],
+                      );
+
+                      const rightColumn = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Latest Offers',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text('Email Address (Placeholder for Text Box)'),
+                          SizedBox(height: 10),
+                          Text('Subscribe (Placeholder for Button)'),
+                        ],
+                      );
+
+                      if (isNarrow) {
+                        return const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            leftColumn,
+                            SizedBox(height: 24),
+                            middleColumn,
+                            SizedBox(height: 24),
+                            rightColumn,
+                          ],
+                        );
+                      }
+
+                      return const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: leftColumn),
+                          Expanded(child: middleColumn),
+                          Expanded(child: rightColumn),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Social media icons
+                  const Row(
+                    children: [
+                      Icon(Icons.facebook, size: 28),
+                      SizedBox(width: 20),
+                      Icon(Icons.camera_alt, size: 28),
+                      SizedBox(width: 20),
+                      Icon(Icons.alternate_email, size: 28),
+                    ],
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // Payment method icons (placeholder)
+                  Wrap(
+                    spacing: 12,
+                    children: [
+                      Container(width: 50, height: 30, color: Colors.black12),
+                      Container(width: 50, height: 30, color: Colors.black12),
+                      Container(width: 50, height: 30, color: Colors.black12),
+                      Container(width: 50, height: 30, color: Colors.black12),
+                    ],
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // Copyright
+                  const Text(
+                    '© 2025 UPSU Store — Powered by Shopify',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
