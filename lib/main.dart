@@ -26,8 +26,16 @@ class UnionShopApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -39,6 +47,21 @@ class HomeScreen extends StatelessWidget {
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
+  }
+
+  void _toggleSearch() {
+    setState(() {
+      _isSearching = !_isSearching;
+      if (!_isSearching) {
+        _searchController.clear();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,51 +91,28 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              navigateToHome(context);
-                            },
-                            child: Image.network(
-                              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: 27,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: Colors.grey[300],
-                                  width: 18,
-                                  height: 18,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported,
-                                        color: Colors.grey),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          const Spacer(),
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 600),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                      child: _isSearching
+                          ? Row(
                               children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 27,
-                                    color: Colors.black,
+                                Expanded(
+                                  child: TextField(
+                                    controller: _searchController,
+                                    decoration: InputDecoration(
+                                      hintText: 'Search',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                      suffixIcon: const Icon(Icons.search, size: 25),
+                                    ),
+                                    autofocus: true,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
+                                const SizedBox(width: 8),
                                 IconButton(
                                   icon: const Icon(
-                                    Icons.person_outline,
+                                    Icons.close,
                                     size: 27,
                                     color: Colors.black,
                                   ),
@@ -121,39 +121,96 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: _toggleSearch,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 27,
-                                    color: Colors.black,
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    navigateToHome(context);
+                                  },
+                                  child: Image.network(
+                                    'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                                    height: 27,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: Colors.grey[300],
+                                        width: 18,
+                                        height: 18,
+                                        child: const Center(
+                                          child: Icon(Icons.image_not_supported,
+                                              color: Colors.grey),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 27,
-                                    color: Colors.black,
+                                const Spacer(),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 600),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.search,
+                                          size: 27,
+                                          color: Colors.black,
+                                        ),
+                                        padding: const EdgeInsets.all(8),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        onPressed: _toggleSearch,
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.person_outline,
+                                          size: 27,
+                                          color: Colors.black,
+                                        ),
+                                        padding: const EdgeInsets.all(8),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        onPressed: placeholderCallbackForButtons,
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.shopping_bag_outlined,
+                                          size: 27,
+                                          color: Colors.black,
+                                        ),
+                                        padding: const EdgeInsets.all(8),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        onPressed: placeholderCallbackForButtons,
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.menu,
+                                          size: 27,
+                                          color: Colors.black,
+                                        ),
+                                        padding: const EdgeInsets.all(8),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        onPressed: placeholderCallbackForButtons,
+                                      ),
+                                    ],
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ],
