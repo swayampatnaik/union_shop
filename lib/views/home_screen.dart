@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_screen.dart';
 import 'package:union_shop/views/cart_screen.dart';
 import 'package:union_shop/views/search_page_screen.dart';
+import 'package:union_shop/views/terms_screen.dart';
 import 'package:union_shop/views/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,6 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const SearchPageScreen()),
+    );
+  }
+  
+  void navigateToTerms(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const TermsScreen()),
     );
   }
 
@@ -486,7 +494,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: const Text('Search'),
                                     ),
                                     const SizedBox(height: 10),
-                                    const Text('Terms & Conditions of Sale Policy'),
+                                    InkWell(
+                                      onTap: () => navigateToTerms(context),
+                                      child: const Text('Terms & Conditions of Sale Policy'),
+                                    ),
                                   ],
                                 );
 
