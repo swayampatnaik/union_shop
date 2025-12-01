@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const TextStyle normalText = TextStyle(
+  color: Colors.black,
   fontSize: 16,
 );
 

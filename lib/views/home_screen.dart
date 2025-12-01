@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_screen.dart';
+import 'package:union_shop/views/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Main header
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 75),
                           child: _isSearching
                               ? Row(
                                   children: [
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       child: Image.network(
                                         'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                                        height: 27,
+                                        height: 37,
                                         fit: BoxFit.cover,
                                         errorBuilder: (context, error, stackTrace) {
                                           return Container(
@@ -150,23 +151,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 children: [
                                                   TextButton(
                                                     onPressed: () => navigateToHome(context),
-                                                    child: const Text('Home'),
+                                                    child: const Text('Home', style: normalText),
                                                   ),
                                                   TextButton(
                                                     onPressed: placeholderCallbackForButtons,
-                                                    child: const Text('Shop'),
+                                                    child: const Text('Shop', style: normalText),
                                                   ),
                                                   TextButton(
                                                     onPressed: placeholderCallbackForButtons,
-                                                    child: const Text('The Print Shack'),
+                                                    child: const Text('The Print Shack', style: normalText),
                                                   ),
                                                   TextButton(
                                                     onPressed: placeholderCallbackForButtons,
-                                                    child: const Text('SALE!'),
+                                                    child: const Text('SALE!', style: normalText),
                                                   ),
                                                   TextButton(
                                                     onPressed: () => navigateToAbout(context),
-                                                    child: const Text('About'),
+                                                    child: const Text('About', style: normalText),
                                                   ),
                                                 ],
                                               ),
