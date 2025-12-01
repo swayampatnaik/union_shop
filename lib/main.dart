@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_screen.dart';
+import 'package:union_shop/views/cart_screen.dart';
 import 'package:union_shop/views/home_screen.dart';
 import 'package:union_shop/views/search_page_screen.dart';
 import 'package:union_shop/views/product_page.dart';
@@ -27,7 +28,9 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutScreen(),
-        '/search': (context) => const SearchPageScreen(),},
+        '/search': (context) => const SearchPageScreen(),
+        '/cart': (context) => const CartScreen(),
+        },
     );
   }
 }
