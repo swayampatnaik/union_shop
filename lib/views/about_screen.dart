@@ -34,7 +34,7 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Footer (extracted)
+            
             Footer(
             placeholderCallbackForButtons: placeholderCallbackForButtons,
             ),

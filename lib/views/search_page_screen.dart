@@ -34,7 +34,7 @@ class SearchPageScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Footer (extracted)
+            
             Footer(
             placeholderCallbackForButtons: placeholderCallbackForButtons,
             ),

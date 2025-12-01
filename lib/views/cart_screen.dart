@@ -34,7 +34,7 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Footer (extracted)
+            
             Footer(
             placeholderCallbackForButtons: placeholderCallbackForButtons,
             ),
