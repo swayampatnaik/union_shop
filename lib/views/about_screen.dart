@@ -12,7 +12,6 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           children: [
             Header(
-              onToggleMenu: () {},
               placeholderCallbackForButtons: () {},
             ),
 
