@@ -4,6 +4,7 @@ import 'package:union_shop/views/cart_screen.dart';
 import 'package:union_shop/views/home_screen.dart';
 import 'package:union_shop/views/search_page_screen.dart';
 import 'package:union_shop/views/product_page.dart';
+import 'package:union_shop/views/terms_screen.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -29,6 +30,7 @@ class UnionShopApp extends StatelessWidget {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutScreen(),
         '/search': (context) => const SearchPageScreen(),
+        '/terms': (context) => const TermsScreen(),
         '/cart': (context) => const CartScreen(),
         },
     );
