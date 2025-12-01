@@ -679,6 +679,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          // Close menu when clicking outside (placed before the menu so
+          // the menu itself remains on top and clickable)
+          if (_isMenuOpen)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: _toggleMenu,
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+
           // Full-width dropdown menu
           if (_isMenuOpen)
             Positioned(
@@ -705,20 +721,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildMenuItem('About'),
                     _buildMenuItem('UPSU.net'),
                   ],
-                ),
-              ),
-            ),
-          // Close menu when clicking outside
-          if (_isMenuOpen)
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: _toggleMenu,
-                child: Container(
-                  color: Colors.transparent,
                 ),
               ),
             ),
