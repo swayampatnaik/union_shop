@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/views/app_styles.dart';
 
 class Header extends StatefulWidget {
-  final VoidCallback onNavigateHome;
-  final VoidCallback onNavigateProduct;
-  final VoidCallback onNavigateAbout;
-  final VoidCallback onNavigateCart;
+  // optional overrides — if null header will navigate using named routes
+  final VoidCallback? onNavigateHome;
+  final VoidCallback? onNavigateProduct;
+  final VoidCallback? onNavigateAbout;
+  final VoidCallback? onNavigateCart;
+  final VoidCallback? onNavigateSearch;
+
   final VoidCallback onToggleMenu;
   final VoidCallback placeholderCallbackForButtons;
 
   const Header({
     super.key,
-    required this.onNavigateHome,
-    required this.onNavigateProduct,
-    required this.onNavigateAbout,
-    required this.onNavigateCart,
+    this.onNavigateHome,
+    this.onNavigateProduct,
+    this.onNavigateAbout,
+    this.onNavigateCart,
+    this.onNavigateSearch,
     required this.onToggleMenu,
     required this.placeholderCallbackForButtons,
   });
@@ -32,6 +36,22 @@ class _HeaderState extends State<Header> {
       _isSearching = !_isSearching;
       if (!_isSearching) _searchController.clear();
     });
+  }
+
+  void _defaultNavigateHome(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  }
+  
+  void _defaultNavigateAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void _defaultNavigateCart(BuildContext context) {
+    Navigator.pushNamed(context, '/cart');
+  }
+
+  void _defaultNavigateSearch(BuildContext context) {
+    Navigator.pushNamed(context, '/search');
   }
 
   @override
@@ -78,6 +98,12 @@ class _HeaderState extends State<Header> {
                               suffixIcon: const Icon(Icons.search, size: 25),
                             ),
                             autofocus: true,
+                            onSubmitted: (_) {
+                              // go to search page when submitted
+                              (widget.onNavigateSearch != null)
+                                  ? widget.onNavigateSearch!()
+                                  : _defaultNavigateSearch(context);
+                            },
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -96,7 +122,11 @@ class _HeaderState extends State<Header> {
                   : Row(
                       children: [
                         GestureDetector(
-                          onTap: widget.onNavigateHome,
+                          onTap: () {
+                            (widget.onNavigateHome != null)
+                                ? widget.onNavigateHome!()
+                                : _defaultNavigateHome(context);
+                          },
                           child: Builder(
                             builder: (context) {
                               final isWide = MediaQuery.of(context).size.width > 800;
@@ -130,11 +160,17 @@ class _HeaderState extends State<Header> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    TextButton(onPressed: widget.onNavigateHome, child: const Text('Home', style: normalText)),
+                                    TextButton(
+                                      onPressed: () => (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context),
+                                      child: const Text('Home', style: normalText),
+                                    ),
                                     TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('Shop', style: normalText)),
                                     TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('The Print Shack', style: normalText)),
                                     TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('SALE!', style: normalText)),
-                                    TextButton(onPressed: widget.onNavigateAbout, child: const Text('About', style: normalText)),
+                                    TextButton(
+                                      onPressed: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
+                                      child: const Text('About', style: normalText),
+                                    ),
                                   ],
                                 ),
                               );
@@ -158,7 +194,9 @@ class _HeaderState extends State<Header> {
                                     icon: const Icon(Icons.search, size: 30, color: Colors.black),
                                     padding: const EdgeInsets.all(6),
                                     constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: _toggleSearch,
+                                    onPressed: () {
+                                      _toggleSearch();
+                                    },
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.person_outline, size: 30, color: Colors.black),
@@ -170,7 +208,7 @@ class _HeaderState extends State<Header> {
                                     icon: const Icon(Icons.shopping_bag_outlined, size: 30, color: Colors.black),
                                     padding: const EdgeInsets.all(6),
                                     constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: widget.onNavigateCart,
+                                    onPressed: () => (widget.onNavigateCart != null) ? widget.onNavigateCart!() : _defaultNavigateCart(context),
                                   ),
                                   if (!isWide)
                                     IconButton(
