@@ -8,17 +8,17 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us', style: heading1),
+        title: const Text('', style: heading1),
       ),
       body: const Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 125.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Welcome to About us', style: heading2),
-            SizedBox(height: 20),
+            Text('About us', style: heading1),
+            SizedBox(height: 40),
             Text(
-              'We are a family-owned business dedicated to serving the best sandwiches in town. ',
+              'Welcome to the Union Shop!\n \nWe are dedicated to giving you the very best University branded products, with a range of clothing and merchandise available to shop all year round! We even offer an exclusive personalisation service!\n \nAll online purcghases are available for delivery or instore collection!\n \nWe hope you enjoy out products as much as we enjoy offering them to you. If you have any questions or comments, please dont hesitate to contact us at hello@upsu.net.\n \nHappy Shopping!\n \nThe Union Shop & Reception Team',
               style: normalText,
             ),
           ],
