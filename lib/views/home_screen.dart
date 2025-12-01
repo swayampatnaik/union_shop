@@ -11,8 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // bool _isSearching = false;
-  bool _isMenuOpen = false;
-  // header handles its own navigation by default; HomeScreen keeps only menu state
+  // header handles its own navigation and menu overlay by default
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
@@ -27,11 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //   });
   // }
 
-  void _toggleMenu() {
-    setState(() {
-      _isMenuOpen = !_isMenuOpen;
-    });
-  }
+  // menu is handled inside Header via an OverlayEntry; no local toggle needed
 
   @override
   void dispose() {
@@ -49,8 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Header (moved into its own file)
                 Header(
                   // rely on Header's default named-route navigation; only provide
-                  // the menu toggle and placeholder callback from here
-                  onToggleMenu: _toggleMenu,
+                  // the placeholder callback from here
                   placeholderCallbackForButtons: placeholderCallbackForButtons,
                 ),
 
@@ -452,102 +446,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          // Close menu when clicking outside (placed before the menu so
-          // the menu itself remains on top and clickable)
-          if (_isMenuOpen)
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: _toggleMenu,
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-
-          // Full-width dropdown menu
-          if (_isMenuOpen)
-            Positioned(
-              top: 135,
-              left: 0,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    _buildMenuItem('Home'),
-                    _buildMenuItem('Shop'),
-                    _buildMenuItem('The Print Shack'),
-                    _buildMenuItem('SALE!'),
-                    _buildMenuItem('About'),
-                    _buildMenuItem('UPSU.net'),
-                  ],
-                ),
-              ),
-            ),
+          // Menu is handled inside the shared Header using an OverlayEntry.
         ],
       ),
     );
   }
 
-  Widget _buildMenuItem(String title) {
-    return Material(
-      child: Column(
-        children: [
-          const Divider(height: 0.2, thickness: 0.2),
-          InkWell(
-            onTap: () {
-              _toggleMenu();
-              if (title == 'About') {
-                Navigator.pushNamed(context, '/about');
-                return;
-              }
-
-              if (title == 'Home') {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                return;
-              }
-
-              if (title == 'Shop') {
-                Navigator.pushNamed(context, '/product');
-                return;
-              }
-
-              // fallback for other items
-              placeholderCallbackForButtons();
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 25),
-              child: Row(
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const Divider(height: 1, thickness: 0.75),
-        ],
-      ),
-    );
-  }
+  // menu handled inside Header
 }
 
 
