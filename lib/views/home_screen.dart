@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/views/about_screen.dart';
-import 'package:union_shop/views/cart_screen.dart';
-import 'package:union_shop/views/search_page_screen.dart';
-import 'package:union_shop/views/terms_screen.dart';
 import 'package:union_shop/views/app_styles.dart';
 import 'package:union_shop/views/header.dart';
 
@@ -16,43 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // bool _isSearching = false;
   bool _isMenuOpen = false;
-  final TextEditingController _searchController = TextEditingController();
-
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  void navigateToProduct(BuildContext context) {
-    Navigator.pushNamed(context, '/product');
-  }
-
-  void navigateToAbout(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const AboutScreen()),
-    );
-  }
-
-  void navigateToSearch(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const SearchPageScreen()),
-    );
-  }
-  
-  void navigateToTerms(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const TermsScreen()),
-    );
-  }
-
-  void navigateToCart(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const CartScreen()),
-    );
-  }
+  // header handles its own navigation by default; HomeScreen keeps only menu state
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
@@ -75,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -89,10 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // Header (moved into its own file)
                 Header(
-                  onNavigateHome: () => navigateToHome(context),
-                  onNavigateProduct: () => navigateToProduct(context),
-                  onNavigateAbout: () => navigateToAbout(context),
-                  onNavigateCart: () => navigateToCart(context),
+                  // rely on Header's default named-route navigation; only provide
+                  // the menu toggle and placeholder callback from here
                   onToggleMenu: _toggleMenu,
                   placeholderCallbackForButtons: placeholderCallbackForButtons,
                 ),
@@ -295,12 +252,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const SizedBox(height: 15),
                                     InkWell(
-                                      onTap: () => navigateToSearch(context),
+                                      onTap: () => Navigator.pushNamed(context, '/search'),
                                       child: const Text('Search'),
                                     ),
                                     const SizedBox(height: 10),
                                     InkWell(
-                                      onTap: () => navigateToTerms(context),
+                                      onTap: () => Navigator.pushNamed(context, '/terms'),
                                       child: const Text('Terms & Conditions of Sale Policy'),
                                     ),
                                   ],
@@ -554,17 +511,17 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _toggleMenu();
               if (title == 'About') {
-                navigateToAbout(context);
+                Navigator.pushNamed(context, '/about');
                 return;
               }
 
               if (title == 'Home') {
-                navigateToHome(context);
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                 return;
               }
 
               if (title == 'Shop') {
-                navigateToProduct(context);
+                Navigator.pushNamed(context, '/product');
                 return;
               }
 
