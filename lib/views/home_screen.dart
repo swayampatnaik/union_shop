@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // Header
                 Container(
-                  height: 135,
+                  height: 140,
                   color: Colors.white,
                   child: Column(
                     children: [
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Main header
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 75),
+                          padding: const EdgeInsets.symmetric(horizontal: 23),
                           child: _isSearching
                               ? Row(
                                   children: [
@@ -123,23 +123,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onTap: () {
                                         navigateToHome(context);
                                       },
-                                      child: Image.network(
-                                        'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                                        height: 37,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Container(
-                                            color: Colors.grey[300],
-                                            width: 18,
-                                            height: 18,
-                                            child: const Center(
-                                              child: Icon(Icons.image_not_supported,
-                                                  color: Colors.grey),
-                                            ),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final isWide = MediaQuery.of(context).size.width > 800;
+                                          final logoHeight = isWide ? 38.0 : 28.0;
+
+                                          return Image.network(
+                                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                                            height: logoHeight,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Container(
+                                                color: Colors.grey[300],
+                                                width: 18,
+                                                height: 18,
+                                                child: const Center(
+                                                  child: Icon(Icons.image_not_supported,
+                                                      color: Colors.grey),
+                                                ),
+                                              );
+                                            },
                                           );
                                         },
-                                        ),
                                       ),
+                                    ),
                                       Expanded(
                                         child: Builder(builder: (context) {
                                           final isWide = MediaQuery.of(context).size.width > 800;
@@ -199,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     size: 27,
                                                     color: Colors.black,
                                                   ),
-                                                  padding: const EdgeInsets.all(8),
+                                                  padding: const EdgeInsets.all(6),
                                                   constraints: const BoxConstraints(
                                                     minWidth: 32,
                                                     minHeight: 32,
@@ -213,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     size: 27,
                                                     color: Colors.black,
                                                   ),
-                                                  padding: const EdgeInsets.all(8),
+                                                  padding: const EdgeInsets.all(6),
                                                   constraints: const BoxConstraints(
                                                     minWidth: 32,
                                                     minHeight: 32,
@@ -226,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     size: 27,
                                                     color: Colors.black,
                                                   ),
-                                                  padding: const EdgeInsets.all(8),
+                                                  padding: const EdgeInsets.all(6),
                                                   constraints: const BoxConstraints(
                                                     minWidth: 32,
                                                     minHeight: 32,
@@ -241,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       size: 27,
                                                       color: Colors.black,
                                                     ),
-                                                    padding: const EdgeInsets.all(8),
+                                                    padding: const EdgeInsets.all(6),
                                                     constraints: const BoxConstraints(
                                                       minWidth: 32,
                                                       minHeight: 32,
