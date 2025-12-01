@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_screen.dart';
+import 'package:union_shop/views/cart_screen.dart';
 import 'package:union_shop/views/search_page_screen.dart';
 import 'package:union_shop/views/app_styles.dart';
 
@@ -34,6 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const SearchPageScreen()),
+    );
+  }
+
+  void navigateToCart(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const CartScreen()),
     );
   }
 
@@ -246,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     minWidth: 32,
                                                     minHeight: 32,
                                                   ),
-                                                  onPressed: placeholderCallbackForButtons,
+                                                  onPressed: () => navigateToCart(context),
                                                 ),
 
                                                 if (!isWide)
