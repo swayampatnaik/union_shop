@@ -9,7 +9,7 @@ class Header extends StatefulWidget {
   final VoidCallback? onNavigateCart;
   final VoidCallback? onNavigateSearch;
 
-  final VoidCallback onToggleMenu;
+  final VoidCallback? onToggleMenu;
   final VoidCallback placeholderCallbackForButtons;
 
   const Header({
@@ -19,7 +19,7 @@ class Header extends StatefulWidget {
     this.onNavigateAbout,
     this.onNavigateCart,
     this.onNavigateSearch,
-    required this.onToggleMenu,
+    this.onToggleMenu,
     required this.placeholderCallbackForButtons,
   });
 
@@ -30,12 +30,67 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
+  bool _isMenuOpen = false;
+  OverlayEntry? _menuOverlayEntry;
 
   void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
       if (!_isSearching) _searchController.clear();
     });
+  }
+
+  void _toggleMenu() {
+    if (_isMenuOpen) {
+      _removeMenuOverlay();
+    } else {
+      _showMenuOverlay();
+    }
+  }
+
+  void _showMenuOverlay() {
+    final overlay = Overlay.of(context);
+
+    _menuOverlayEntry = OverlayEntry(builder: (ctx) {
+      return Stack(
+        children: [
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: _removeMenuOverlay,
+              child: Container(color: Colors.transparent),
+            ),
+          ),
+          Positioned(
+            top: 135,
+            left: 0,
+            right: 0,
+            child: Material(
+              elevation: 8,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildMenuItem('Home'),
+                  _buildMenuItem('Shop'),
+                  _buildMenuItem('The Print Shack'),
+                  _buildMenuItem('SALE!'),
+                  _buildMenuItem('About'),
+                  _buildMenuItem('UPSU.net'),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+
+    overlay.insert(_menuOverlayEntry!);
+    setState(() => _isMenuOpen = true);
+  }
+
+  void _removeMenuOverlay() {
+    _menuOverlayEntry?.remove();
+    _menuOverlayEntry = null;
+    if (mounted) setState(() => _isMenuOpen = false);
   }
 
   void _defaultNavigateHome(BuildContext context) {
@@ -58,6 +113,42 @@ class _HeaderState extends State<Header> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  Widget _buildMenuItem(String title) {
+    return InkWell(
+      onTap: () {
+        _removeMenuOverlay();
+        if (title == 'About') {
+          Navigator.pushNamed(context, '/about');
+          return;
+        }
+
+        if (title == 'Home') {
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          return;
+        }
+
+        if (title == 'Shop') {
+          Navigator.pushNamed(context, '/product');
+          return;
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -215,7 +306,13 @@ class _HeaderState extends State<Header> {
                                       icon: const Icon(Icons.menu, size: 27, color: Colors.black),
                                       padding: const EdgeInsets.all(6),
                                       constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                      onPressed: widget.onToggleMenu,
+                                      onPressed: () {
+                                        if (widget.onToggleMenu != null) {
+                                          widget.onToggleMenu!();
+                                        } else {
+                                          _toggleMenu();
+                                        }
+                                      },
                                     ),
                                 ],
                               );
