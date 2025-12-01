@@ -454,10 +454,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 );
 
-                                const middleColumn = Column(
+                                final middleColumn = Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Help and Information',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -465,10 +465,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.black87,
                                       ),
                                     ),
-                                    SizedBox(height: 15),
-                                    Text('Search'),
-                                    SizedBox(height: 10),
-                                    Text('Terms & Conditions of Sale Policy'),
+                                    const SizedBox(height: 15),
+                                    InkWell(
+                                      onTap: () => Navigator.pushNamed(context, '/search'),
+                                      child: const Text('Search'),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const Text('Terms & Conditions of Sale Policy'),
                                   ],
                                 );
 
@@ -557,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Expanded(child: leftColumn),
-                                    const Expanded(child: middleColumn),
+                                    Expanded(child: middleColumn),
                                     Expanded(child: rightColumn),
                                   ],
                                 );
