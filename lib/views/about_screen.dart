@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/app_styles.dart';
 import 'package:union_shop/views/header.dart';
+import 'package:union_shop/views/footer.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
+  
+  void placeholderCallbackForButtons() {
+    // This is the event handler for buttons that don't work yet
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,10 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            // Footer (extracted)
+            Footer(
+            placeholderCallbackForButtons: placeholderCallbackForButtons,
             ),
           ],
         ),
