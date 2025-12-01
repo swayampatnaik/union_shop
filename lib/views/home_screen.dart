@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 IconButton(
                                                   icon: const Icon(
                                                     Icons.search,
-                                                    size: 27,
+                                                    size: 30,
                                                     color: Colors.black,
                                                   ),
                                                   padding: const EdgeInsets.all(6),
@@ -241,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 IconButton(
                                                   icon: const Icon(
                                                     Icons.person_outline,
-                                                    size: 27,
+                                                    size: 30,
                                                     color: Colors.black,
                                                   ),
                                                   padding: const EdgeInsets.all(6),
@@ -254,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 IconButton(
                                                   icon: const Icon(
                                                     Icons.shopping_bag_outlined,
-                                                    size: 27,
+                                                    size: 30,
                                                     color: Colors.black,
                                                   ),
                                                   padding: const EdgeInsets.all(6),
