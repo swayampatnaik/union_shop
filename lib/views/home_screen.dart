@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
+import 'package:union_shop/views/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -100,19 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 32),
-                            ElevatedButton(
-                              onPressed: placeholderCallbackForButtons,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4d2963),
-                                foregroundColor: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero,
-                                ),
-                              ),
-                              child: const Text(
-                                'BROWSE PRODUCTS',
-                                style: TextStyle(fontSize: 14, letterSpacing: 1),
-                              ),
+                            PurpleButton(
+                              text: 'BROWSE COLLECTIONS',
+                              onPressed: () => Navigator.pushNamed(context, '/collections'),
                             ),
                           ],
                         ),
