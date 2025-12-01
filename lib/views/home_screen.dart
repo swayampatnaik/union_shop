@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_screen.dart';
+import 'package:union_shop/views/search_page_screen.dart';
 import 'package:union_shop/views/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -756,37 +757,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class PurpleButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-  final EdgeInsets padding;
-
-  const PurpleButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
-        padding: padding,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-}
 
 class ProductCard extends StatelessWidget {
   final String title;
