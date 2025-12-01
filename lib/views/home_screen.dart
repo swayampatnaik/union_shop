@@ -30,6 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void navigateToSearch(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const SearchPageScreen()),
+    );
+  }
+
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
@@ -467,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const SizedBox(height: 15),
                                     InkWell(
-                                      onTap: () => Navigator.pushNamed(context, '/search'),
+                                      onTap: () => navigateToSearch(context),
                                       child: const Text('Search'),
                                     ),
                                     const SizedBox(height: 10),
@@ -721,7 +728,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _toggleMenu();
               if (title == 'About') {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
+                navigateToAbout(context);
                 return;
               }
 
