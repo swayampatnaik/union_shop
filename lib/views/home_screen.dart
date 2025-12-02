@@ -82,9 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
-                              'Placeholder Hero Title',
+                              'Big Sale! - Over 20% OFF!',
                               style: TextStyle(
-                                fontSize: 32,
+                                fontSize: 50,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                                 height: 1.2,
@@ -92,19 +92,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 16),
                             const Text(
-                              "This is placeholder text for the hero section.",
+                              "Over 20% off select collections. Come and Grab yours while stock lasts!",
                               style: TextStyle(
                                 fontSize: 20,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white,
                                 height: 1.5,
                               ),
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 32),
-                            PurpleButton(
-                              text: 'BROWSE COLLECTIONS',
-                              onPressed: () => Navigator.pushNamed(context, '/collections'),
-                            ),
+                            SizedBox(
+                              height: 48,
+                              child: PurpleButton(
+                                text: 'BROWSE COLLECTIONS',
+                                onPressed: () => Navigator.pushNamed(context, '/collections'),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -167,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                // Footer (extracted)
                 Footer(
                   placeholderCallbackForButtons: placeholderCallbackForButtons,
                 ),
