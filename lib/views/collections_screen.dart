@@ -22,24 +22,24 @@ class CollectionsScreen extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 75.0),
+              padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 50.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text('Collections', style: heading1),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
                   Container(
                     color: Colors.white,
                     child: Padding(
-                      padding: const EdgeInsets.all(40.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
-                          const SizedBox(height: 48),
+                          const SizedBox(height: 10),
                           GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount:
-                                MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                            // use 3 columns on wide windows, 2 columns on smaller/tablet/mobile widths
+                            crossAxisCount: MediaQuery.of(context).size.width > 900 ? 3 : 2,
                             crossAxisSpacing: 24,
                             mainAxisSpacing: 48,
                             children: const [
