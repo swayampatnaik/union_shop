@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // Hero Section
                 SizedBox(
-                  height: 400,
+                  height: 475,
                   width: double.infinity,
                   child: Stack(
                     children: [
@@ -74,43 +74,47 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      // Content overlay
-                      Positioned(
-                        left: 24,
-                        right: 24,
-                        top: 80,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Big Sale! - Over 20% OFF!',
-                              style: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                height: 1.2,
-                              ),
+                      // Content overlay - centered vertically and horizontally
+                      Positioned.fill(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Big Sale! - Over 20% OFF!',
+                                  style: TextStyle(
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    height: 1.2,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  "Over 20% off select collections. Come and Grab yours while stock lasts!",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    height: 1.5,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 32),
+                                SizedBox(
+                                  height: 48,
+                                  child: PurpleButton(
+                                    text: 'BROWSE COLLECTIONS',
+                                    onPressed: () => Navigator.pushNamed(context, '/collections'),
+                                  ),
+                                )
+                              ],
                             ),
-                            const SizedBox(height: 16),
-                            const Text(
-                              "Over 20% off select collections. Come and Grab yours while stock lasts!",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                height: 1.5,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 32),
-                            SizedBox(
-                              height: 48,
-                              child: PurpleButton(
-                                text: 'BROWSE COLLECTIONS',
-                                onPressed: () => Navigator.pushNamed(context, '/collections'),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     ],
@@ -123,50 +127,57 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(40.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          'PRODUCTS SECTION',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                        const SizedBox(height: 48),
-                        GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          crossAxisCount:
-                              MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                          crossAxisSpacing: 24,
-                          mainAxisSpacing: 48,
-                          children: const [
-                            ProductCard(
-                              title: 'Placeholder Product 1',
-                              price: '£10.00',
-                              imageUrl:
-                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                        const Text('ESSENTIAL RANGE - OVER 20% OFF!', style: heading2, textAlign: TextAlign.center),
+                        const SizedBox(height: 35),
+                          // responsive, centered grid with a maximum width
+                        Builder(builder: (context) {
+                          final width = MediaQuery.of(context).size.width;
+                          final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
+                          // control how wide the grid gets on large screens
+                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+
+                          return Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: gridMaxWidth),
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: crossAxisCount,
+                                childAspectRatio: 1.0, // keep squares; change if needed
+                                crossAxisSpacing: 35,
+                                mainAxisSpacing: 35,
+                                children: const[
+                                  ProductCard(
+                                    title: 'Placeholder Collection 1',
+                                    price: '\$19.99',
+                                    imageUrl:
+                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  ProductCard (
+                                    title: 'Placeholder Collection 2',
+                                    price: '\$29.99',
+                                    imageUrl:
+                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  ProductCard(
+                                    title: 'Placeholder Collection 3',
+                                    price: '\$39.99',
+                                    imageUrl:
+                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  ProductCard(
+                                    title: 'Placeholder Collection 4',
+                                    price: '\$49.99',
+                                    imageUrl:
+                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                ],
+                              ),
                             ),
-                            ProductCard(
-                              title: 'Placeholder Product 2',
-                              price: '£15.00',
-                              imageUrl:
-                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                            ),
-                            ProductCard(
-                              title: 'Placeholder Product 3',
-                              price: '£20.00',
-                              imageUrl:
-                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                            ),
-                            ProductCard(
-                              title: 'Placeholder Product 4',
-                              price: '£25.00',
-                              imageUrl:
-                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                            ),
-                          ],
-                        ),
+                          );
+                        }),
                       ],
                     ),
                   ),
