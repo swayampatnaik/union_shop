@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/views/app_styles.dart';
+import 'package:union_shop/widgets/buttons.dart';
 
 class Footer extends StatelessWidget {
   final VoidCallback? onSearch;

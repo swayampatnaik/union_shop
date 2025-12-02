@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/views/app_styles.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
-import 'package:union_shop/views/collection_card.dart';
+import 'package:union_shop/widgets/collection_card.dart';
 
 class CollectionsScreen extends StatelessWidget {
   const CollectionsScreen({super.key});

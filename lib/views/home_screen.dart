@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/views/collection_card.dart';
+import 'package:union_shop/widgets/collection_card.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
 import 'package:union_shop/views/app_styles.dart';
-import 'package:union_shop/views/product_card.dart';
+import 'package:union_shop/widgets/buttons.dart';
+import 'package:union_shop/widgets/product_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
