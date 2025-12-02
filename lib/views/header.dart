@@ -274,17 +274,33 @@ class _HeaderState extends State<Header> {
                                             case 'halloween':
                                               Navigator.pushNamed(context, '/');
                                               break;
+                                            case 'signature':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                            case 'portsmouth':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                            case 'pride':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                            case 'graduation':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
                                           }
                                         },
                                         itemBuilder: (ctx) => const [
                                           PopupMenuItem(value: 'clothing', child: Text('Clothing')),
                                           PopupMenuItem(value: 'merchandise', child: Text('Merchandise')),
                                           PopupMenuItem(value: 'halloween', child: Text('Halloween')),
+                                          PopupMenuItem(value: 'signature', child: Text('Signature & Essential Range')),
+                                          PopupMenuItem(value: 'portsmouth', child: Text('Portsmouth City Collection')),
+                                          PopupMenuItem(value: 'pride', child: Text('Pride Collection')),
+                                          PopupMenuItem(value: 'graduation', child: Text('Graduation')),
                                         ],
 
 
                                         // label with hover effect (PopupMenuButton still handles taps)
-                                        child: const _HoverableMenuLabel(text: 'Shop'),
+                                        child: const _HoverableMenuLabel(text: 'Shop ▾'),
                                       ),
  
                                       // The Print Shack with dropdown
@@ -305,7 +321,7 @@ class _HeaderState extends State<Header> {
                                           PopupMenuItem(value: 'about', child: Text('About')),
                                           PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
                                         ],
-                                        child: const _HoverableMenuLabel(text: 'The Print Shack'),
+                                        child: const _HoverableMenuLabel(text: 'The Print Shack ▾'),
                                       ),
                                       _HoverableMenuLabel(text: 'SALE!', onTap: widget.placeholderCallbackForButtons),
                                       _HoverableMenuLabel(
