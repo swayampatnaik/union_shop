@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
+import 'package:union_shop/widgets/buttons.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -63,25 +64,59 @@ class ProductPage extends StatelessWidget {
                 ),
               );
 
-              const infoColumn = Column(
+              final infoColumn = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Placeholder Product Name',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
-                  SizedBox(height: 30),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     '£15.00',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF4d2963)),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 107, 107, 107)),
                   ),
-                  SizedBox(height: 24),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Tax included.',
+                    style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 107, 107, 107)),
+                  ),
+                  const SizedBox(height: 45),
+                  const Text(
+                    'Quantity',
+                    style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 107, 107, 107)),
+                  ),
+                  const SizedBox(height: 5),
+                  // quantity input — fixed height to match WhiteButton (48)
+                  const SizedBox(
+                    width: 90,
+                    height: 75, // set desired height (match WhiteButton)
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        hintText: '1',
+                        hintStyle: TextStyle(fontSize: 14),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 15), // no vertical padding
+                      ),
+                    ),
+                  ),
+                  WhiteButton(
+                    text: 'ADD TO CART',
+                    onPressed: () => Navigator.pushNamed(context, '/product'), // temp link
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    height: 48,
+                    width: double.infinity,
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
                     'Description',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 30),
+                  const Text(
                     'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
                     style: TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
                   ),
@@ -90,47 +125,47 @@ class ProductPage extends StatelessWidget {
 
               return Container(
                 color: Colors.white,
-                padding: const EdgeInsets.all(24),
-                child: isWide
-                    ? Row(
-                        // align children to the top so the info column starts at the same height as the image
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Left column (image) occupies half the page; image constrained and aligned to top
-                          Expanded(
-                            flex: 1,
-                            child: Center(
-                              // keep the column half-width but make the image smaller and centered
-                              child: Align(
-                                alignment: Alignment.centerRight, // place the image on the right side of the left column
-                                child: SizedBox(
-                                  width: 420, // adjust this to change image width
+                padding: const EdgeInsets.all(40),
+                // center the two-column layout and constrain its maximum width so columns don't span the whole window
+                child: Center(
+                  child: ConstrainedBox(
+                    // change maxWidth to control how wide the whole two-column area is on large screens
+                    constraints: BoxConstraints(maxWidth: isWide ? 1000 : double.infinity),
+                    child: isWide
+                        ? Row(
+                            // align children to the top so the info column starts at the same height as the image
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Left column: center image inside a fixed-width box so it doesn't expand to fill the column
+                              SizedBox(
+                                width: 460, // left column image area width (adjust as needed)
+                                child: Align(
+                                  alignment: Alignment.centerRight,
                                   child: imageWidget,
                                 ),
                               ),
-                            ),
-                          ),
 
-                          const SizedBox(width: 28),
+                              const SizedBox(width: 28),
 
-                          // Right column (info) occupies the other half; add internal left padding so text isn't flush
-                          const Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 0.0),
-                              child: infoColumn,
-                            ),
+                              // Right column: take remaining space but constrained by the parent maxWidth
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: infoColumn,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              imageWidget,
+                              const SizedBox(height: 24),
+                              infoColumn,
+                            ],
                           ),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          imageWidget,
-                          const SizedBox(height: 24),
-                          infoColumn,
-                        ],
-                      ),
+                  ),
+                )
               );
             }),
 
