@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
 
-                // Products Section
+                // Essential Range Section
                 Container(
                   color: Colors.white,
                   child: Padding(
@@ -210,28 +210,120 @@ class _HomeScreenState extends State<HomeScreen> {
                                 mainAxisSpacing: 35,
                                 children: const[
                                   ProductCard(
-                                    title: 'Placeholder Collection 1',
+                                    title: 'Product 1',
                                     price: '\$19.99',
-                                    imageUrl:
-                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard (
-                                    title: 'Placeholder Collection 2',
+                                    title: 'Product 2',
                                     price: '\$29.99',
-                                    imageUrl:
-                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Signature Range Section
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('SIGNATURE RANGE', style: heading2, textAlign: TextAlign.center),
+                        const SizedBox(height: 35),
+                          // responsive, centered grid with a maximum width
+                        Builder(builder: (context) {
+                          final width = MediaQuery.of(context).size.width;
+                          final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
+                          // control how wide the grid gets on large screens
+                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+
+                          return Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: gridMaxWidth),
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: crossAxisCount,
+                                childAspectRatio: 1.0, // keep squares; change if needed
+                                crossAxisSpacing: 35,
+                                mainAxisSpacing: 35,
+                                children: const[
+                                  ProductCard(
+                                    title: 'Product 1',
+                                    price: '\$19.99',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  ProductCard (
+                                    title: 'Product 2',
+                                    price: '\$29.99',
+                                    imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Portsmouth City Collection Section
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('PORTSMOUTH CITY COLLECTION', style: heading2, textAlign: TextAlign.center),
+                        const SizedBox(height: 35),
+                          // responsive, centered grid with a maximum width
+                        Builder(builder: (context) {
+                          final width = MediaQuery.of(context).size.width;
+                          final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
+                          // control how wide the grid gets on large screens
+                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+
+                          return Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: gridMaxWidth),
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: crossAxisCount,
+                                childAspectRatio: 1.0, // keep squares; change if needed
+                                crossAxisSpacing: 35,
+                                mainAxisSpacing: 35,
+                                children: const[
+                                  ProductCard(
+                                    title: 'Product 1',
+                                    price: '\$19.99',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  ProductCard (
+                                    title: 'Product 2',
+                                    price: '\$29.99',
+                                    imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard(
-                                    title: 'Placeholder Collection 3',
+                                    title: 'Product 3',
                                     price: '\$39.99',
-                                    imageUrl:
-                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard(
-                                    title: 'Placeholder Collection 4',
+                                    title: 'Product 4',
                                     price: '\$49.99',
-                                    imageUrl:
-                                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                 ],
                               ),
