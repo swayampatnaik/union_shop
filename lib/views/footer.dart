@@ -27,7 +27,7 @@ class Footer extends StatelessWidget {
         children: [
           // Top section with padding
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 250),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
