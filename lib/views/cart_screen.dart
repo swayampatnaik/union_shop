@@ -20,16 +20,26 @@ class CartScreen extends StatelessWidget {
               placeholderCallbackForButtons: () {},
             ),
 
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 125.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 125.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Your Cart', style: heading1),
-                  SizedBox(height: 40),
-                  Text(
-                    'Your cart is currently empty. Browse our products and add items to your cart to see them here.',
+                  const Text('Your Cart', style: heading1),
+                  const SizedBox(height: 40),
+                  const Text(
+                    'Your cart is currently empty.',
                     style: normalText,
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    height: 48,
+                    child: PurpleButton(
+                      text: 'CONTINUE SHOPPING    --->',
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/'); // to go back to home screen
+                      },
+                    ),
                   ),
                 ],
               ),
