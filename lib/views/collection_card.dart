@@ -4,7 +4,6 @@ class CollectionCard extends StatefulWidget {
   final String title;
   final String imageUrl;
   final VoidCallback? onTap;
-  final double height;
   final BorderRadius borderRadius;
 
   const CollectionCard({
@@ -12,7 +11,6 @@ class CollectionCard extends StatefulWidget {
     required this.title,
     required this.imageUrl,
     this.onTap,
-    this.height = 180.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
@@ -29,8 +27,8 @@ class _CollectionCardState extends State<CollectionCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
+    return AspectRatio(
+      aspectRatio: 1.0, // keeps 1:1 ratio; GridView cell will set actual size
       child: ClipRRect(
         borderRadius: widget.borderRadius,
         child: Material(
@@ -89,20 +87,23 @@ class _CollectionCardState extends State<CollectionCard> {
                       child: Semantics(
                         button: true,
                         label: widget.title,
-                        child: Text(
-                          widget.title,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(0, 1)),
-                            ],
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        child: LayoutBuilder(builder: (ctx, constraints) {
+                          final double computedFont = (constraints.maxWidth * 0.16).clamp(12.0, 32.0);
+                          return Text(
+                            widget.title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: computedFont,
+                              fontWeight: FontWeight.bold,
+                              shadows: const [
+                                Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(0, 1)),
+                              ],
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          );
+                        }),
                       ),
                     ),
                   ),
