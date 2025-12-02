@@ -53,7 +53,7 @@ class _ProductCardState extends State<ProductCard> {
                   Positioned.fill(
                     child: IgnorePointer(
                       child: Container(
-                        color: Colors.black.withOpacity(_hovering ? 0.18 : 0.0),
+                        color: Colors.black.withValues(alpha: _hovering ? 0.2 : 0.0),
                       ),
                     ),
                   ),
