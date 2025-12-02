@@ -31,40 +31,53 @@ class CollectionsScreen extends StatelessWidget {
                   Container(
                     color: Colors.white,
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Column(
                         children: [
-                          const SizedBox(height: 10),
-                          GridView.count(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            // use 3 columns on wide windows, 2 columns on smaller/tablet/mobile widths
-                            crossAxisCount: MediaQuery.of(context).size.width > 900 ? 3 : 2,
-                            crossAxisSpacing: 24,
-                            mainAxisSpacing: 48,
-                            children: const [
-                              CollectionCard(
-                                title: 'Placeholder Collection 1',
-                                imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          const SizedBox(height: 5),
+                          // responsive, centered grid with a maximum width
+                          Builder(builder: (context) {
+                            final width = MediaQuery.of(context).size.width;
+                            final crossAxisCount = width > 1200 ? 3 : (width > 900 ? 3 : 2);
+                            // control how wide the grid gets on large screens
+                            final gridMaxWidth = width > 1200 ? 1050.0 : (width > 900 ? 800.0 : double.infinity);
+
+                            return Center(
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(maxWidth: gridMaxWidth),
+                                child: GridView.count(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  crossAxisCount: crossAxisCount,
+                                  childAspectRatio: 1.0, // keep squares; change if needed
+                                  crossAxisSpacing: 35,
+                                  mainAxisSpacing: 35,
+                                  children: const[
+                                    CollectionCard(
+                                      title: 'Placeholder Collection 1',
+                                      imageUrl:
+                                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    ),
+                                    CollectionCard(
+                                      title: 'Placeholder Collection 2',
+                                      imageUrl:
+                                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    ),
+                                    CollectionCard(
+                                      title: 'Placeholder Collection 3',
+                                      imageUrl:
+                                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    ),
+                                    CollectionCard(
+                                      title: 'Placeholder Collection 4',
+                                      imageUrl:
+                                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                    ),
+                                  ],
+                                ),
                               ),
-                              CollectionCard(
-                                title: 'Placeholder Collection 2',
-                                imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                              ),
-                              CollectionCard(
-                                title: 'Placeholder Collection 3',
-                                imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                              ),
-                              CollectionCard(
-                                title: 'Placeholder Collection 4',
-                                imageUrl:
-                                    'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                              ),
-                            ],
-                          ),
+                            );
+                          }),
                         ],
                       ),
                     ),
