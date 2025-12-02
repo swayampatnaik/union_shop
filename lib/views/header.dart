@@ -33,6 +33,24 @@ class _HeaderState extends State<Header> {
   bool _isMenuOpen = false;
   OverlayEntry? _menuOverlayEntry;
 
+  // overlay menu state: 'root' | 'shop' | 'print'
+  String _overlayMenu = 'root';
+
+  void _showSubmenu(String menu) {
+    _overlayMenu = menu;
+    _menuOverlayEntry?.markNeedsBuild();
+  }
+
+  void _backToRootMenu() {
+    _overlayMenu = 'root';
+    _menuOverlayEntry?.markNeedsBuild();
+  }
+
+  void _closeOverlayAndNavigate(VoidCallback nav) {
+    _removeMenuOverlay();
+    nav();
+  }
+
   void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
@@ -51,6 +69,9 @@ class _HeaderState extends State<Header> {
   void _showMenuOverlay() {
     final overlay = Overlay.of(context);
 
+    // start at root menu
+    _overlayMenu = 'root';
+
     _menuOverlayEntry = OverlayEntry(builder: (ctx) {
       return Stack(
         children: [
@@ -66,17 +87,10 @@ class _HeaderState extends State<Header> {
             right: 0,
             child: Material(
               elevation: 8,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildMenuItem('Home'),
-                  _buildMenuItem('Shop'),
-                  _buildMenuItem('The Print Shack'),
-                  _buildMenuItem('SALE!'),
-                  _buildMenuItem('About'),
-                  _buildMenuItem('UPSU.net'),
-                ],
-              ),
+              child: Builder(builder: (_) {
+                // Build content dynamically based on _overlayMenu
+                return _buildOverlayContent();
+              }),
             ),
           ),
         ],
@@ -85,6 +99,153 @@ class _HeaderState extends State<Header> {
 
     overlay.insert(_menuOverlayEntry!);
     setState(() => _isMenuOpen = true);
+  }
+
+  Widget _buildOverlayContent() {
+    // Root menu: show main entries; Shop and Print go to submenus
+    if (_overlayMenu == 'root') {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildMenuItem('Home'),
+          InkWell(
+            onTap: () => _showSubmenu('shop'),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(
+                children: [
+                  Expanded(child: Text('Shop', style: TextStyle(fontSize: 16))),
+                  Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black54),
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => _showSubmenu('print'),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(
+                children: [
+                  Expanded(child: Text('The Print Shack', style: TextStyle(fontSize: 16))),
+                  Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black54),
+                ],
+              ),
+            ),
+          ),
+          _buildMenuItem('SALE!'),
+          _buildMenuItem('About'),
+          _buildMenuItem('UPSU.net'),
+        ],
+      );
+    }
+
+    // Shop submenu
+    if (_overlayMenu == 'shop') {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // back row
+          InkWell(
+            onTap: _backToRootMenu,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_back_ios, size: 14),
+                  SizedBox(width: 8),
+                  Text('Shop', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Clothing', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Merchandise', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Halloween', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Signature & Essential Range', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Portsmouth City Collection', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Pride Collection', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+          InkWell(
+            onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+              child: Row(children: [Text('Graduation', style: TextStyle(fontSize: 16))]),
+            ),
+          ),
+        ],
+      );
+    }
+
+    // Print Shack submenu
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: _backToRootMenu,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+            child: Row(
+              children: [
+                Icon(Icons.arrow_back_ios, size: 14),
+                SizedBox(width: 8),
+                Text('The Print Shack', style: TextStyle(fontSize: 16)),
+              ],
+            ),
+          ),
+        ),
+        const Divider(height: 1),
+        InkWell(
+          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+            child: Row(children: [Text('About', style: TextStyle(fontSize: 16))]),
+          ),
+        ),
+        InkWell(
+          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+            child: Row(children: [Text('Personalisation', style: TextStyle(fontSize: 16))]),
+          ),
+        ),
+      ],
+    );
   }
 
   void _removeMenuOverlay() {
@@ -244,7 +405,7 @@ class _HeaderState extends State<Header> {
 
                         Expanded(
                           child: Builder(builder: (context) {
-                            final isWide = MediaQuery.of(context).size.width > 800;
+                            final isWide = MediaQuery.of(context).size.width > 835;
 
                             if (isWide) {
                               return Center(
