@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/views/collection_card.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
 import 'package:union_shop/views/app_styles.dart';
@@ -185,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -196,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final width = MediaQuery.of(context).size.width;
                           final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
                           // control how wide the grid gets on large screens
-                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+                          final gridMaxWidth = width > 1200 ? 1150.0 : (width > 900 ? 800.0 : double.infinity);
 
                           return Center(
                             child: ConstrainedBox(
@@ -233,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -244,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final width = MediaQuery.of(context).size.width;
                           final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
                           // control how wide the grid gets on large screens
-                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+                          final gridMaxWidth = width > 1200 ? 1150.0 : (width > 900 ? 800.0 : double.infinity);
 
                           return Center(
                             child: ConstrainedBox(
@@ -281,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -292,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final width = MediaQuery.of(context).size.width;
                           final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
                           // control how wide the grid gets on large screens
-                          final gridMaxWidth = width > 1200 ? 900.0 : (width > 900 ? 800.0 : double.infinity);
+                          final gridMaxWidth = width > 1200 ? 1150.0 : (width > 900 ? 800.0 : double.infinity);
 
                           return Center(
                             child: ConstrainedBox(
@@ -334,6 +335,153 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+
+                Container(
+                  height: 80,
+                  color: Colors.white,
+                  child: Center(
+                    child: PurpleButton(text: 'VIEW ALL', onPressed: () => Navigator.pushNamed(context, '/collections')),
+                  ),
+                ),
+
+                // Our Range Section
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('OUR RANGE', style: heading2, textAlign: TextAlign.center),
+                        const SizedBox(height: 35),
+                          // responsive, centered grid with a maximum width
+                        Builder(builder: (context) {
+                          final width = MediaQuery.of(context).size.width;
+                          final crossAxisCount = width > 1200 ? 4 : (width > 900 ? 4 : 2);
+                          // control how wide the grid gets on large screens
+                          final gridMaxWidth = width > 1200 ? 1150.0 : (width > 900 ? 800.0 : double.infinity);
+
+                          return Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: gridMaxWidth),
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: crossAxisCount,
+                                childAspectRatio: 1.0, // keep squares; change if needed
+                                crossAxisSpacing: 35,
+                                mainAxisSpacing: 35,
+                                children: const[
+                                  CollectionCard(
+                                    title: 'Product 1',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  CollectionCard (
+                                    title: 'Product 2',
+                                    imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  CollectionCard(
+                                    title: 'Product 3',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                  CollectionCard(
+                                    title: 'Product 4',
+                                    imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // New two-column section: window = two columns, mobile = stacked with RIGHT column on top
+                LayoutBuilder(builder: (context, constraints) {
+                  final isMobile = constraints.maxWidth < 900;
+
+                  final leftColumn = Padding(
+                    // use smaller horizontal padding on mobile so the text can be wider
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 8.0 : 0.0,
+                      vertical: isMobile ? 16.0 : 60.0,
+                    ),
+                     child: Column(
+                       // center content vertically inside the available space
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         const Text('Add a Personal Touch', style: heading2),
+                         const SizedBox(height: 12),
+                         const Text(
+                           'First add your item of clothing to your cart then click below to add your text! '
+                           'One line of text contains 10 characters!',
+                           style: normalText,
+                         ),
+                         const SizedBox(height: 16),
+                         SizedBox(
+                           height: 48,
+                           child: PurpleButton(
+                             text: 'CLICK HERE TO ADD TEXT!',
+                             onPressed: () {
+                               // placeholder behaviour
+                             },
+                           ),
+                         ),
+                       ],
+                     ),
+                   );
+
+                  final rightColumn = Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                            width: 350,
+                            height: 350,
+                            fit: BoxFit.cover,
+                            errorBuilder: (ctx, err, stack) => Container(
+                              height: 350,
+                              color: Colors.grey[300],
+                              child: const Center(child: Icon(Icons.image_not_supported)),
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+
+                  return Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      vertical: isMobile ? 24.0 : 40.0,
+                      horizontal: isMobile ? 16.0 : 200.0,
+                    ),
+                    child: isMobile
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              // right column should appear on top on mobile
+                              rightColumn,
+                              const SizedBox(height: 20),
+                              leftColumn,
+                            ],
+                          )
+                        : Row(
+                            // ensure both columns are vertically centered inside the row
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 60),
+                              Expanded(child: leftColumn),
+                              const SizedBox(width: 40),
+                              Expanded(child: rightColumn),
+                            ],
+                          ),
+                  );
+                }),
 
                 Footer(
                   placeholderCallbackForButtons: placeholderCallbackForButtons,
