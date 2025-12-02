@@ -251,16 +251,67 @@ class _HeaderState extends State<Header> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    TextButton(
-                                      onPressed: () => (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context),
-                                      child: const Text('Home', style: normalText),
+                                    // Home with hover label
+                                    _HoverableMenuLabel(
+                                      text: 'Home',
+                                      onTap: () => (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context),
                                     ),
-                                    TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('Shop', style: normalText)),
-                                    TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('The Print Shack', style: normalText)),
-                                    TextButton(onPressed: widget.placeholderCallbackForButtons, child: const Text('SALE!', style: normalText)),
-                                    TextButton(
-                                      onPressed: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
-                                      child: const Text('About', style: normalText),
+ 
+                                      // Shop with dropdown (menu shown below the button)
+                                      PopupMenuButton<String>(
+                                        // remove default tooltip ("Show menu")
+                                        tooltip: '',
+                                        // move the menu down so it appears under the label
+                                        offset: const Offset(0, 36),
+                                        onSelected: (value) {
+                                          switch (value) {
+                                            case 'clothing':
+                                              (widget.onNavigateProduct != null) ? widget.onNavigateProduct!() : Navigator.pushNamed(context, '/product');
+                                              break;
+                                            case 'merchandise':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                            case 'halloween':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                          }
+                                        },
+                                        itemBuilder: (ctx) => const [
+                                          PopupMenuItem(value: 'clothing', child: Text('Clothing')),
+                                          PopupMenuItem(value: 'merchandise', child: Text('Merchandise')),
+                                          PopupMenuItem(value: 'halloween', child: Text('Halloween')),
+                                        ],
+
+
+                                        // label with hover effect (PopupMenuButton still handles taps)
+                                        child: const _HoverableMenuLabel(text: 'Shop'),
+                                      ),
+ 
+                                      // The Print Shack with dropdown
+                                      PopupMenuButton<String>(
+                                        tooltip: '',
+                                        offset: const Offset(0, 36), // same downward offset
+                                        onSelected: (value) {
+                                          switch (value) {
+                                            case 'about':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                            case 'personalisation':
+                                              Navigator.pushNamed(context, '/');
+                                              break;
+                                          }
+                                        },
+                                        itemBuilder: (ctx) => const [
+                                          PopupMenuItem(value: 'about', child: Text('About')),
+                                          PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
+                                        ],
+                                        child: const _HoverableMenuLabel(text: 'The Print Shack'),
+                                      ),
+                                      _HoverableMenuLabel(text: 'SALE!', onTap: widget.placeholderCallbackForButtons),
+                                      _HoverableMenuLabel(
+                                      text: 'About',
+                                      onTap: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
+                                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                                     ),
                                   ],
                                 ),
@@ -324,6 +375,57 @@ class _HeaderState extends State<Header> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _HoverableMenuLabel extends StatefulWidget {
+  final String text;
+  final VoidCallback? onTap;
+  final EdgeInsets padding;
+
+  const _HoverableMenuLabel({
+    Key? key,
+    required this.text,
+    this.onTap,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+  }) : super(key: key);
+
+  @override
+  State<_HoverableMenuLabel> createState() => _HoverableMenuLabelState();
+}
+
+class _HoverableMenuLabelState extends State<_HoverableMenuLabel> {
+  bool _hovering = false;
+
+  void _setHover(bool v) {
+    if (mounted) setState(() => _hovering = v);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // base style from app_styles.normalText
+    final base = normalText.copyWith(fontSize: normalText.fontSize ?? 16);
+    const hoveredColor =  Colors.black; // same purple used elsewhere
+
+    return MouseRegion(
+      onEnter: (_) => _setHover(true),
+      onExit: (_) => _setHover(false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Padding(
+          padding: widget.padding,
+          child: Text(
+            widget.text,
+            style: base.copyWith(
+              color: _hovering ? hoveredColor : base.color,
+              decoration: _hovering ? TextDecoration.underline : TextDecoration.none,
+              decorationColor: _hovering ? hoveredColor : null,
+            ),
+          ),
+        ),
       ),
     );
   }
