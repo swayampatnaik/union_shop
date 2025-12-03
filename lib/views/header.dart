@@ -551,6 +551,13 @@ class _HeaderState extends State<Header> {
                     ),
             ),
           ),
+
+          // thin full-width divider at the end of the header
+          const Divider(
+            height: 1,
+            thickness: 1.2,
+            color: Color.fromARGB(255, 222, 222, 222),
+          ),
         ],
       ),
     );
