@@ -13,7 +13,7 @@ class CollectionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _openCollection(String title) {
+    void openCollection(String title) {
       Navigator.pushNamed(context, '/selected_collection', arguments: title);
     }
 
@@ -60,137 +60,137 @@ class CollectionsScreen extends StatelessWidget {
                                     CollectionCard(
                                       title: 'Autumn Favourites',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Autumn Favourites'),
+                                      onTap: () => openCollection('Autumn Favourites'),
                                     ),
                                     CollectionCard(
                                       title: 'Black Friday',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Black Friday'),
+                                      onTap: () => openCollection('Black Friday'),
                                     ),
                                     CollectionCard(
                                       title: 'Clothing',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Clothing'),
+                                      onTap: () => openCollection('Clothing'),
                                     ),
                                     CollectionCard(
                                       title: 'Clothing - Original',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Clothing - Original'),
+                                      onTap: () => openCollection('Clothing - Original'),
                                     ),
                                     CollectionCard(
                                       title: 'Elections Discounts',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Elections Discounts'),
+                                      onTap: () => openCollection('Elections Discounts'),
                                     ),
                                     CollectionCard(
                                       title: 'Essential Range',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Essential Range'),
+                                      onTap: () => openCollection('Essential Range'),
                                     ),
                                     CollectionCard(
                                       title: 'Graduation',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Graduation'),
+                                      onTap: () => openCollection('Graduation'),
                                     ),
                                     CollectionCard(
                                       title: 'Limited Edition Essential Zip Hoodies',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Limited Edition Essential Zip Hoodies'),
+                                      onTap: () => openCollection('Limited Edition Essential Zip Hoodies'),
                                     ),
                                     CollectionCard(
                                       title: 'Merchandise',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Merchandise'),
+                                      onTap: () => openCollection('Merchandise'),
                                     ),
                                     CollectionCard(
                                       title: 'Nike Final Chance',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Nike Final Chance'),
+                                      onTap: () => openCollection('Nike Final Chance'),
                                     ),
                                     CollectionCard(
                                       title: 'Personalisation',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Personalisation'),
+                                      onTap: () => openCollection('Personalisation'),
                                     ),
                                     CollectionCard(
                                       title: 'Popular',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Popular'),
+                                      onTap: () => openCollection('Popular'),
                                     ),
                                     CollectionCard(
                                       title: 'Portsmouth City Collection',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Portsmouth City Collection'),
+                                      onTap: () => openCollection('Portsmouth City Collection'),
                                     ),
                                     CollectionCard(
                                       title: 'Pride Collection',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Pride Collection'),
+                                      onTap: () => openCollection('Pride Collection'),
                                     ),
                                     CollectionCard(
                                       title: 'SALE',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('SALE'),
+                                      onTap: () => openCollection('SALE'),
                                     ),
                                     CollectionCard(
                                       title: 'Signature & Essential Range',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Signature & Essential Range'),
+                                      onTap: () => openCollection('Signature & Essential Range'),
                                     ),
                                     CollectionCard(
                                       title: 'Signature Range',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Signature Range'),
+                                      onTap: () => openCollection('Signature Range'),
                                     ),
                                     CollectionCard(
                                       title: 'Sports Clubs',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Sports Clubs'),
+                                      onTap: () => openCollection('Sports Clubs'),
                                     ),
                                     CollectionCard(
                                       title: 'Spring Favourites',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Spring Favourites'),
+                                      onTap: () => openCollection('Spring Favourites'),
                                     ),
                                     CollectionCard(
                                       title: 'Student Essentials',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Student Essentials'),
+                                      onTap: () => openCollection('Student Essentials'),
                                     ),
                                     CollectionCard(
                                       title: 'Student Groups',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Student Groups'),
+                                      onTap: () => openCollection('Student Groups'),
                                     ),
                                     CollectionCard(
                                       title: 'Summer Essentials',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Summer Essentials'),
+                                      onTap: () => openCollection('Summer Essentials'),
                                     ),
                                     CollectionCard(
                                       title: 'Summer Favourites',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Summer Favourites'),
+                                      onTap: () => openCollection('Summer Favourites'),
                                     ),
                                     CollectionCard(
                                       title: 'University Clothing',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('University Clothing'),
+                                      onTap: () => openCollection('University Clothing'),
                                     ),
                                     CollectionCard(
                                       title: 'University Merchandise',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('University Merchandise'),
+                                      onTap: () => openCollection('University Merchandise'),
                                     ),
                                     CollectionCard(
                                       title: 'UPSU Bears',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('UPSU Bears'),
+                                      onTap: () => openCollection('UPSU Bears'),
                                     ),
                                     CollectionCard(
                                       title: 'Winter Favourites',
                                       imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                                      onTap: () => _openCollection('Winter Favourites'),
+                                      onTap: () => openCollection('Winter Favourites'),
                                     ),
                                   ],
                                 ),
