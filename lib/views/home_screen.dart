@@ -426,9 +426,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            height: 48,
                            child: PurpleButton(
                              text: 'CLICK HERE TO ADD TEXT!',
-                             onPressed: () {
-                               // placeholder behaviour
-                             },
+                             onPressed: () => Navigator.pushNamed(context, '/personalisation'),
                            ),
                          ),
                        ],
