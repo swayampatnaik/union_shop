@@ -213,12 +213,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: const[
                                   ProductCard(
                                     title: 'Product 1',
-                                    price: '\$19.99',
+                                    price: '£19.99',
                                     imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard (
                                     title: 'Product 2',
-                                    price: '\$29.99',
+                                    price: '£29.99',
                                     imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                 ],
@@ -261,12 +261,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: const[
                                   ProductCard(
                                     title: 'Product 1',
-                                    price: '\$19.99',
+                                    price: '£19.99',
                                     imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard (
                                     title: 'Product 2',
-                                    price: '\$29.99',
+                                    price: '£29.99',
                                     imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                 ],
@@ -309,22 +309,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: const[
                                   ProductCard(
                                     title: 'Product 1',
-                                    price: '\$19.99',
+                                    price: '£19.99',
                                     imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard (
                                     title: 'Product 2',
-                                    price: '\$29.99',
+                                    price: '£29.99',
                                     imageUrl:'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard(
                                     title: 'Product 3',
-                                    price: '\$39.99',
+                                    price: '£39.99',
                                     imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                   ProductCard(
                                     title: 'Product 4',
-                                    price: '\$49.99',
+                                    price: '£49.99',
                                     imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                                   ),
                                 ],
