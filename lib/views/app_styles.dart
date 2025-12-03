@@ -14,3 +14,8 @@ const heading2 = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
+
+const greyText = TextStyle(
+  color: Color.fromARGB(255, 107, 107, 107),
+  fontSize: 16,
+);
