@@ -5,6 +5,7 @@ class Header extends StatefulWidget {
   // optional overrides — if null header will navigate using named routes
   final VoidCallback? onNavigateHome;
   final VoidCallback? onNavigateProduct;
+  final VoidCallback? onNavigateSignIn;
   final VoidCallback? onNavigateAbout;
   final VoidCallback? onNavigateCart;
   final VoidCallback? onNavigateSearch;
@@ -17,6 +18,7 @@ class Header extends StatefulWidget {
     this.onNavigateHome,
     this.onNavigateProduct,
     this.onNavigateAbout,
+    this.onNavigateSignIn,
     this.onNavigateCart,
     this.onNavigateSearch,
     this.onToggleMenu,
@@ -260,6 +262,10 @@ class _HeaderState extends State<Header> {
   
   void _defaultNavigateAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
+  }
+  
+  void _defaultNavigateSignIn(BuildContext context) {
+    Navigator.pushNamed(context, '/sign_in');
   }
 
   void _defaultNavigateCart(BuildContext context) {
@@ -521,7 +527,7 @@ class _HeaderState extends State<Header> {
                                     icon: const Icon(Icons.person_outline, size: 30, color: Colors.black),
                                     padding: const EdgeInsets.all(6),
                                     constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: widget.placeholderCallbackForButtons,
+                                    onPressed: () => (widget.onNavigateSignIn != null) ? widget.onNavigateSignIn!() : _defaultNavigateSignIn(context),
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.shopping_bag_outlined, size: 30, color: Colors.black),
