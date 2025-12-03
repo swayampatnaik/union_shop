@@ -341,7 +341,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 80,
                   color: Colors.white,
                   child: Center(
-                    child: PurpleButton(text: 'VIEW ALL', onPressed: () => Navigator.pushNamed(context, '/collections')),
+                    child: SizedBox(
+                      height: 48,
+                      child: PurpleButton(text: 'VIEW ALL', onPressed: () => Navigator.pushNamed(context, '/collections')),
+                    )
                   ),
                 ),
 
