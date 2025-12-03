@@ -92,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     SizedBox(
                       height: 48,
                       child: PurpleButton(
-                        text: 'SUBMIT',
+                        text: 'Continue',
                         borderRadius: BorderRadius.circular(4),
                         onPressed: () {
                           final email = _emailController.text.trim();
