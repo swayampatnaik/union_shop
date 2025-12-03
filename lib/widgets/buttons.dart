@@ -58,7 +58,6 @@ class WhiteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const purple =  Color(0xFF4d2963);
-
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -70,7 +69,8 @@ class WhiteButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold,),
+        textAlign: TextAlign.center,
       ),
     );
 
