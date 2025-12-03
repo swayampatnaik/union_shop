@@ -166,6 +166,33 @@ class ProductPage extends StatelessWidget {
                           ),
                   ),
                 )
+              ); // end of LayoutBuilder's return
+            }),
+
+            // centered button outside the two-column container — responsive height (auto on mobile)
+            LayoutBuilder(builder: (context, constraints) {
+              final isMobile = constraints.maxWidth < 600;
+
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 45.0, horizontal: 40),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      // limit the max width on larger screens but allow full width on mobile
+                      maxWidth: isMobile ? constraints.maxWidth - 40 : 500,
+                    ),
+                    child: WhiteButton(
+                      text: '←   BACK TO PORTSMOUTH CITY COLLECTIONS',
+                      onPressed: () => Navigator.pushNamed(context, '/collections'),
+                      // on mobile let height be null so the button expands for wrapped/multi-line text;
+                      // on desktop keep a fixed height
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      height: isMobile ? null : 43,
+                      // width left null on mobile so button sizes to its child; fixed on desktop via maxWidth above
+                      width: isMobile ? null : 500,
+                    ),
+                  ),
+                ),
               );
             }),
 
