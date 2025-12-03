@@ -26,67 +26,67 @@ class _SelectedCollectionScreenState extends State<SelectedCollectionScreen> {
   final List<Map<String, String>> _products = const [
     {
       'title': 'Autumn Favourites',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Black Friday',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Clothing',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Clothing - Original',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Elections Discounts',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Essential Range',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Graduation',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Limited Edition Essential Zip Hoodies',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Merchandise',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Nike Final Chance',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
     {
       'title': 'Personalisation',
-      'price': '\$12.00',
+      'price': '£12.00',
       'imageUrl':
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
     },
