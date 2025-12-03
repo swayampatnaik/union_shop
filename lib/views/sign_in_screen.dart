@@ -1,11 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/app_styles.dart';
-import 'package:union_shop/views/header.dart';
-import 'package:union_shop/views/footer.dart';
+import 'package:union_shop/widgets/buttons.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
-  
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  late TextEditingController _emailController;
+  bool _canSubmit = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _emailController.addListener(_updateCanSubmit);
+  }
+
+  void _updateCanSubmit() {
+    final hasText = _emailController.text.trim().isNotEmpty;
+    if (hasText != _canSubmit) {
+      setState(() => _canSubmit = hasText);
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.removeListener(_updateCanSubmit);
+    _emailController.dispose();
+    super.dispose();
+  }
+
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
@@ -13,32 +41,74 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Header(
-              placeholderCallbackForButtons: () {},
-            ),
+        // make the scrollable area at least the height of the viewport so we can center vertically
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Center(
+            // keep the same padded, constrained column but now centered vertically
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 35,
+                      child: Image.network(
+                        'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    const Text('Sign in', style: heading2, textAlign: TextAlign.start),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Enter your email to continue',
+                      style: greyText,
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 25),
+                    SizedBox(
+                      height: 48,
+                      child: TextField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.done,
+                        decoration: const InputDecoration(
+                          hintText: 'Email address',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
 
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 75.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('SIGN IN', style: heading1),
-                  SizedBox(height: 40),
-                  Text(
-                    'Sign in form content goes here',
-                    style: normalText,
-                  ),
-                ],
+                    // ElevatedButton that is disabled when the text field is empty
+                    SizedBox(
+                      height: 48,
+                      child: PurpleButton(
+                        text: 'SUBMIT',
+                        borderRadius: BorderRadius.circular(4),
+                        onPressed: () {
+                          final email = _emailController.text.trim();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Continue with: ${email.isEmpty ? '(empty)' : email}')),
+                          );
+                        },
+                        enabled: _canSubmit,
+                        height: 48,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            
-            Footer(
-            placeholderCallbackForButtons: placeholderCallbackForButtons,
-            ),
-          ],
+          ),
         ),
       ),
     );
