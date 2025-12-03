@@ -259,11 +259,11 @@ class _HeaderState extends State<Header> {
   void _defaultNavigateHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
-  
+
   void _defaultNavigateAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
-  
+
   void _defaultNavigateSignIn(BuildContext context) {
     Navigator.pushNamed(context, '/sign_in');
   }
@@ -341,220 +341,268 @@ class _HeaderState extends State<Header> {
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 23),
-              child: _isSearching
-                  ? Row(
-                      children: [
-                        Expanded(
+              child: Builder(builder: (context) {
+                final isMobile = MediaQuery.of(context).size.width < 800;
+
+                // On mobile + searching: make a single full-width search bar (with clickable search icon inside)
+                if (isMobile && _isSearching) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 40,
                           child: TextField(
                             controller: _searchController,
                             decoration: InputDecoration(
                               hintText: 'Search',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
                               contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                              suffixIcon: const Icon(Icons.search, size: 25),
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.search, size: 24),
+                                onPressed: () {
+                                  final q = _searchController.text.trim();
+                                  if (q.isEmpty) {
+                                    _defaultNavigateSearch(context);
+                                    return;
+                                  }
+                                  (widget.onNavigateSearch != null) ? widget.onNavigateSearch!() : _defaultNavigateSearch(context);
+                                },
+                              ),
+                              prefixIcon: IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: _toggleSearch,
+                              ),
                             ),
                             autofocus: true,
                             onSubmitted: (_) {
-                              // go to search page when submitted
-                              (widget.onNavigateSearch != null)
-                                  ? widget.onNavigateSearch!()
-                                  : _defaultNavigateSearch(context);
+                              final q = _searchController.text.trim();
+                              if (q.isEmpty) {
+                                _toggleSearch();
+                                return;
+                              }
+                              (widget.onNavigateSearch != null) ? widget.onNavigateSearch!() : _defaultNavigateSearch(context);
                             },
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.close,
-                            size: 27,
-                            color: Colors.black,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                          onPressed: _toggleSearch,
-                        ),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            (widget.onNavigateHome != null)
-                                ? widget.onNavigateHome!()
-                                : _defaultNavigateHome(context);
-                          },
-                          child: Builder(
-                            builder: (context) {
-                              final isWide = MediaQuery.of(context).size.width > 800;
-                              final logoHeight = isWide ? 38.0 : 28.0;
+                      ),
+                    ],
+                  );
+                }
 
-                              return Image.network(
-                                'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                                height: logoHeight,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.grey[300],
-                                    width: 18,
-                                    height: 18,
-                                    child: const Center(
-                                      child: Icon(Icons.image_not_supported, color: Colors.grey),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
+                // default (window view or not searching) layout — keep existing row
+                return Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context);
+                      },
+                      child: Builder(
+                        builder: (context) {
+                          final isWide = MediaQuery.of(context).size.width > 800;
+                          final logoHeight = isWide ? 38.0 : 28.0;
 
-                        Expanded(
-                          child: Builder(builder: (context) {
-                            final isWide = MediaQuery.of(context).size.width > 835;
-
-                            if (isWide) {
-                              return Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    // Home with hover label
-                                    _HoverableMenuLabel(
-                                      text: 'Home',
-                                      onTap: () => (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context),
-                                    ),
- 
-                                      // Shop with dropdown (menu shown below the button)
-                                      PopupMenuButton<String>(
-                                        // remove default tooltip ("Show menu")
-                                        tooltip: '',
-                                        // move the menu down so it appears under the label
-                                        offset: const Offset(0, 36),
-                                        onSelected: (value) {
-                                          switch (value) {
-                                            case 'clothing':
-                                              (widget.onNavigateProduct != null) ? widget.onNavigateProduct!() : Navigator.pushNamed(context, '/product');
-                                              break;
-                                            case 'merchandise':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'halloween':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'signature':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'portsmouth':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'pride':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'graduation':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                          }
-                                        },
-                                        itemBuilder: (ctx) => const [
-                                          PopupMenuItem(value: 'clothing', child: Text('Clothing')),
-                                          PopupMenuItem(value: 'merchandise', child: Text('Merchandise')),
-                                          PopupMenuItem(value: 'halloween', child: Text('Halloween')),
-                                          PopupMenuItem(value: 'signature', child: Text('Signature & Essential Range')),
-                                          PopupMenuItem(value: 'portsmouth', child: Text('Portsmouth City Collection')),
-                                          PopupMenuItem(value: 'pride', child: Text('Pride Collection')),
-                                          PopupMenuItem(value: 'graduation', child: Text('Graduation')),
-                                        ],
-
-
-                                        // label with hover effect (PopupMenuButton still handles taps)
-                                        child: const _HoverableMenuLabel(text: 'Shop ▾'),
-                                      ),
- 
-                                      // The Print Shack with dropdown
-                                      PopupMenuButton<String>(
-                                        tooltip: '',
-                                        offset: const Offset(0, 36), // same downward offset
-                                        onSelected: (value) {
-                                          switch (value) {
-                                            case 'about':
-                                              Navigator.pushNamed(context, '/');
-                                              break;
-                                            case 'personalisation':
-                                              Navigator.pushNamed(context, '/personalisation');
-                                              break;
-                                          }
-                                        },
-                                        itemBuilder: (ctx) => const [
-                                          PopupMenuItem(value: 'about', child: Text('About')),
-                                          PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
-                                        ],
-                                        child: const _HoverableMenuLabel(text: 'The Print Shack ▾'),
-                                      ),
-                                      _HoverableMenuLabel(text: 'SALE!', onTap: widget.placeholderCallbackForButtons),
-                                      _HoverableMenuLabel(
-                                      text: 'About',
-                                      onTap: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                                    ),
-                                  ],
+                          return Image.network(
+                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                            height: logoHeight,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                width: 18,
+                                height: 18,
+                                child: const Center(
+                                  child: Icon(Icons.image_not_supported, color: Colors.grey),
                                 ),
                               );
-                            }
-
-                            return const SizedBox.shrink();
-                          }),
-                        ),
-
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 1000),
-                          child: Builder(
-                            builder: (context) {
-                              final isWide = MediaQuery.of(context).size.width > 800;
-
-                              // ensure mobile menu toggles are preserved
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.search, size: 30, color: Colors.black),
-                                    padding: const EdgeInsets.all(6),
-                                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: () {
-                                      _toggleSearch();
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.person_outline, size: 30, color: Colors.black),
-                                    padding: const EdgeInsets.all(6),
-                                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: () => (widget.onNavigateSignIn != null) ? widget.onNavigateSignIn!() : _defaultNavigateSignIn(context),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.shopping_bag_outlined, size: 30, color: Colors.black),
-                                    padding: const EdgeInsets.all(6),
-                                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                    onPressed: () => (widget.onNavigateCart != null) ? widget.onNavigateCart!() : _defaultNavigateCart(context),
-                                  ),
-                                  if (!isWide)
-                                    IconButton(
-                                      icon: const Icon(Icons.menu, size: 27, color: Colors.black),
-                                      padding: const EdgeInsets.all(6),
-                                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                      onPressed: () {
-                                        if (widget.onToggleMenu != null) {
-                                          widget.onToggleMenu!();
-                                        } else {
-                                          _toggleMenu();
-                                        }
-                                      },
-                                    ),
-                                ],
-                              );
                             },
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+                      ),
                     ),
+
+                    Expanded(
+                      child: Builder(builder: (context) {
+                        final isWide = MediaQuery.of(context).size.width > 835;
+
+                        if (isWide) {
+                          return Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // Home with hover label
+                                _HoverableMenuLabel(
+                                  text: 'Home',
+                                  onTap: () => (widget.onNavigateHome != null) ? widget.onNavigateHome!() : _defaultNavigateHome(context),
+                                ),
+
+                                // Shop with dropdown (menu shown below the button)
+                                PopupMenuButton<String>(
+                                  // remove default tooltip ("Show menu")
+                                  tooltip: '',
+                                  // move the menu down so it appears under the label
+                                  offset: const Offset(0, 36),
+                                  onSelected: (value) {
+                                    switch (value) {
+                                      case 'clothing':
+                                        (widget.onNavigateProduct != null) ? widget.onNavigateProduct!() : Navigator.pushNamed(context, '/product');
+                                        break;
+                                      case 'merchandise':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'halloween':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'signature':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'portsmouth':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'pride':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'graduation':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                    }
+                                  },
+                                  itemBuilder: (ctx) => const [
+                                    PopupMenuItem(value: 'clothing', child: Text('Clothing')),
+                                    PopupMenuItem(value: 'merchandise', child: Text('Merchandise')),
+                                    PopupMenuItem(value: 'halloween', child: Text('Halloween')),
+                                    PopupMenuItem(value: 'signature', child: Text('Signature & Essential Range')),
+                                    PopupMenuItem(value: 'portsmouth', child: Text('Portsmouth City Collection')),
+                                    PopupMenuItem(value: 'pride', child: Text('Pride Collection')),
+                                    PopupMenuItem(value: 'graduation', child: Text('Graduation')),
+                                  ],
+
+                                  // label with hover effect (PopupMenuButton still handles taps)
+                                  child: const _HoverableMenuLabel(text: 'Shop ▾'),
+                                ),
+
+                                // The Print Shack with dropdown
+                                PopupMenuButton<String>(
+                                  tooltip: '',
+                                  offset: const Offset(0, 36), // same downward offset
+                                  onSelected: (value) {
+                                    switch (value) {
+                                      case 'about':
+                                        Navigator.pushNamed(context, '/');
+                                        break;
+                                      case 'personalisation':
+                                        Navigator.pushNamed(context, '/personalisation');
+                                        break;
+                                    }
+                                  },
+                                  itemBuilder: (ctx) => const [
+                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                    PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
+                                  ],
+                                  child: const _HoverableMenuLabel(text: 'The Print Shack ▾'),
+                                ),
+                                _HoverableMenuLabel(text: 'SALE!', onTap: widget.placeholderCallbackForButtons),
+                                _HoverableMenuLabel(
+                                  text: 'About',
+                                  onTap: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        return const SizedBox.shrink();
+                      }),
+                    ),
+
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: Builder(
+                        builder: (context) {
+                          final isWide = MediaQuery.of(context).size.width > 800;
+
+                          // ensure mobile menu toggles are preserved
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Keep the compact right-side search for non-mobile or when not replacing the header
+                              if (!_isSearching || !isMobile)
+                                (_isSearching
+                                    ? ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context).size.width > 900 ? 420 : 220,
+                                        ),
+                                        child: SizedBox(
+                                          height: 40,
+                                          child: TextField(
+                                            controller: _searchController,
+                                            decoration: InputDecoration(
+                                              hintText: 'Search',
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                              suffixIcon: IconButton(
+                                                icon: const Icon(Icons.search, size: 24),
+                                                onPressed: () {
+                                                  final q = _searchController.text.trim();
+                                                  if (q.isEmpty) {
+                                                    _toggleSearch();
+                                                    return;
+                                                  }
+                                                  (widget.onNavigateSearch != null) ? widget.onNavigateSearch!() : _defaultNavigateSearch(context);
+                                                },
+                                              ),
+                                            ),
+                                            autofocus: true,
+                                            onSubmitted: (_) {
+                                              final q = _searchController.text.trim();
+                                              if (q.isEmpty) {
+                                                _toggleSearch();
+                                                return;
+                                              }
+                                              (widget.onNavigateSearch != null) ? widget.onNavigateSearch!() : _defaultNavigateSearch(context);
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    : IconButton(
+                                        icon: const Icon(Icons.search, size: 30, color: Colors.black),
+                                        padding: const EdgeInsets.all(6),
+                                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                        onPressed: _toggleSearch,
+                                      )),
+                              IconButton(
+                                icon: const Icon(Icons.person_outline, size: 30, color: Colors.black),
+                                padding: const EdgeInsets.all(6),
+                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                onPressed: () => (widget.onNavigateSignIn != null) ? widget.onNavigateSignIn!() : _defaultNavigateSignIn(context),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.shopping_bag_outlined, size: 30, color: Colors.black),
+                                padding: const EdgeInsets.all(6),
+                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                onPressed: () => (widget.onNavigateCart != null) ? widget.onNavigateCart!() : _defaultNavigateCart(context),
+                              ),
+                              if (!isWide)
+                                IconButton(
+                                  icon: const Icon(Icons.menu, size: 27, color: Colors.black),
+                                  padding: const EdgeInsets.all(6),
+                                  constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                  onPressed: () {
+                                    if (widget.onToggleMenu != null) {
+                                      widget.onToggleMenu!();
+                                    } else {
+                                      _toggleMenu();
+                                    }
+                                  },
+                                ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
 
@@ -597,7 +645,7 @@ class _HoverableMenuLabelState extends State<_HoverableMenuLabel> {
   Widget build(BuildContext context) {
     // base style from app_styles.normalText
     final base = normalText.copyWith(fontSize: normalText.fontSize ?? 16);
-    const hoveredColor =  Colors.black; // same purple used elsewhere
+    const hoveredColor = Colors.black;
 
     return MouseRegion(
       onEnter: (_) => _setHover(true),
