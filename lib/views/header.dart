@@ -474,7 +474,7 @@ class _HeaderState extends State<Header> {
                                               Navigator.pushNamed(context, '/');
                                               break;
                                             case 'personalisation':
-                                              Navigator.pushNamed(context, '/');
+                                              Navigator.pushNamed(context, '/personalisation');
                                               break;
                                           }
                                         },
