@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
 import 'package:union_shop/widgets/buttons.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  late TextEditingController _qtyController;
+
+  @override
+  void initState() {
+    super.initState();
+    _qtyController = TextEditingController(text: '1');
+  }
+
+  @override
+  void dispose() {
+    _qtyController.dispose();
+    super.dispose();
+  }
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -87,25 +107,83 @@ class ProductPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 107, 107, 107)),
                   ),
                   const SizedBox(height: 5),
-                  // quantity input — fixed height to match WhiteButton (48)
-                  const SizedBox(
-                    width: 90,
-                    height: 75, // set desired height (match WhiteButton)
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        hintText: '1',
-                        hintStyle: TextStyle(fontSize: 14),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 15), // no vertical padding
+
+                  // Quantity input — fixed height to match WhiteButton
+                  SizedBox(
+                    width: 120,
+                    height: 48, // match other controls' height
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(2),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          // numeric input
+                          Expanded(
+                            child: TextField(
+                              controller: _qtyController,
+                              keyboardType: TextInputType.number,
+                              textAlignVertical: TextAlignVertical.top,
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                                hintText: '1',
+                                hintStyle: TextStyle(fontSize: 14),
+                              ),
+                              onChanged: (_) => setState(() {}), // update UI if needed
+                            ),
+                          ),
+
+                          // separator (thin)
+                          Container(width: 0, height: double.infinity, color: Colors.grey.shade300),
+
+                          // up / down buttons
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  final current = int.tryParse(_qtyController.text) ?? 1;
+                                  final next = (current + 1);
+                                  _qtyController.text = next.toString();
+                                  setState(() {});
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                                  child: Icon(Icons.arrow_drop_up, size: 20),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  final current = int.tryParse(_qtyController.text) ?? 1;
+                                  final next = (current - 1) < 1 ? 1 : (current - 1);
+                                  _qtyController.text = next.toString();
+                                  setState(() {});
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                                  child: Icon(Icons.arrow_drop_down, size: 20),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 12),
+
                   WhiteButton(
                     text: 'ADD TO CART',
-                    onPressed: () => Navigator.pushNamed(context, '/product'), // temp link
+                    onPressed: () {
+                      //final qty = int.tryParse(_qtyController.text) ?? 1;
+                      // placeholder behaviour: in a real app, add the product to the cart with the specified quantity
+                      Navigator.pushNamed(context, '/product'); // placeholder
+                    },
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     height: 48,
                     width: double.infinity,
@@ -165,7 +243,7 @@ class ProductPage extends StatelessWidget {
                             ],
                           ),
                   ),
-                )
+                ),
               ); // end of LayoutBuilder's return
             }),
 
