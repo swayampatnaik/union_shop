@@ -27,10 +27,10 @@ class Footer extends StatelessWidget {
         children: [
           // Top section with responsive padding
           LayoutBuilder(builder: (context, constraints) {
-            final isNarrow = constraints.maxWidth < 400;
+            final isNarrow = constraints.maxWidth < 700;
             final topPadding = EdgeInsets.symmetric(
               vertical: isNarrow ? 24.0 : 40.0,
-              horizontal: isNarrow ? 45.0 : 45.0,
+              horizontal: isNarrow ? 45.0 : 250.0,
             );
 
             return Padding(
@@ -41,7 +41,7 @@ class Footer extends StatelessWidget {
                   // stack into one column on narrow screens (breakpoint = 600)
                   LayoutBuilder(
                     builder: (context, constraints) {
-                      final isNarrow = constraints.maxWidth < 400;
+                      final isNarrow = constraints.maxWidth < 700;
 
                       const leftColumn = Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
