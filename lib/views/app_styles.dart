@@ -19,3 +19,9 @@ const greyText = TextStyle(
   color: Color.fromARGB(255, 107, 107, 107),
   fontSize: 16,
 );
+
+const greyText2 = TextStyle(
+  color: Color.fromARGB(255, 107, 107, 107),
+  fontSize: 14,
+  fontStyle: FontStyle.italic,
+);
