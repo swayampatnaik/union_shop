@@ -182,8 +182,8 @@ class ProductPage extends StatelessWidget {
                       maxWidth: isMobile ? constraints.maxWidth - 40 : 500,
                     ),
                     child: WhiteButton(
-                      text: '←   BACK TO PORTSMOUTH CITY COLLECTIONS',
-                      onPressed: () => Navigator.pushNamed(context, '/collections'),
+                      text: '←   BACK TO SELECTED COLLECTION',
+                      onPressed: () => Navigator.pushNamed(context, '/selected_collection'),
                       // on mobile let height be null so the button expands for wrapped/multi-line text;
                       // on desktop keep a fixed height
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
