@@ -23,30 +23,44 @@ class PurpleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF4d2963),
+    const purpleClr = Color(0xFF4d2963);
+
+    // style that allows the button to size to its child when width is not provided
+    final ButtonStyle baseStyle = ElevatedButton.styleFrom(
+      backgroundColor: purpleClr,
       foregroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.zero),
       padding: padding,
+      // allow natural sizing by using a zero minimum; if a height is provided use it
       minimumSize: Size(0, height ?? 0),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       elevation: 0,
-    ).copyWith(
+    );
+
+    final ButtonStyle style = baseStyle.copyWith(
       overlayColor: WidgetStateProperty.all(Colors.white.withValues(alpha: 0.06)),
+      // subtle disabled appearance
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) return Colors.grey.shade300;
+        return purpleClr;
+      }),
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) return Colors.grey.shade600;
+        return Colors.white;
+      }),
     );
 
     final button = ElevatedButton(
-      onPressed: enabled ? onPressed : null, // null disables the ElevatedButton
+      onPressed: enabled ? onPressed : null,
       style: style,
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
+      child: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
     );
 
+    // only constrain if explicit width/height provided; otherwise let the button size to its content
     if (width != null || height != null) {
       return SizedBox(width: width, height: height, child: button);
     }
