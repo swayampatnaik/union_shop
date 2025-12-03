@@ -5,31 +5,52 @@ class PurpleButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final EdgeInsets padding;
+  final bool enabled;
+  final double? width;
+  final double? height;
+  final BorderRadius? borderRadius;
 
   const PurpleButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+    this.enabled = true,
+    this.width,
+    this.height,
+    this.borderRadius,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
+    final ButtonStyle style = ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF4d2963),
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.zero),
+      padding: padding,
+      minimumSize: Size(0, height ?? 0),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      elevation: 0,
+    ).copyWith(
+      overlayColor: WidgetStateProperty.all(Colors.white.withValues(alpha: 0.06)),
+    );
+
+    final button = ElevatedButton(
+      onPressed: enabled ? onPressed : null, // null disables the ElevatedButton
+      style: style,
+      child: Center(
+        child: Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
-        padding: padding,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
+
+    if (width != null || height != null) {
+      return SizedBox(width: width, height: height, child: button);
+    }
+    return button;
   }
 }
 
