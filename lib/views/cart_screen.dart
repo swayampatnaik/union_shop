@@ -16,6 +16,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,6 +64,49 @@ class CartScreen extends StatelessWidget {
                         constraints: const BoxConstraints(maxWidth: 1000),
                         child: Column(
                           children: [
+                            // Header bar for the columns
+                            Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              child: const Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      'Product',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      'Price',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      'Quantity',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      'Total',
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(height: 0.75),
+
+                            // Cart items list (each row separated by Divider)
                             ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -71,59 +115,86 @@ class CartScreen extends StatelessWidget {
                               itemBuilder: (ctx, i) {
                                 final item = items[i];
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width: 72,
-                                        height: 72,
-                                        color: Colors.grey[200],
-                                        child: Center(
-                                          child: Text(
-                                            item.title.isNotEmpty ? item.title[0] : '?',
-                                            style: const TextStyle(fontSize: 24, color: Colors.black54),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 16),
+                                      // Product column (image placeholder + title)
                                       Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                        flex: 4,
+                                        child: Row(
                                           children: [
-                                            Text(item.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                                            const SizedBox(height: 6),
-                                            Text('£${item.price.toStringAsFixed(2)} each', style: normalText),
+                                            Container(
+                                              width: 72,
+                                              height: 72,
+                                              color: Colors.grey[200],
+                                              child: Center(
+                                                child: Text(
+                                                  item.title.isNotEmpty ? item.title[0] : '?',
+                                                  style: const TextStyle(fontSize: 24, color: Colors.black54),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: Text(
+                                                item.title,
+                                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(Icons.remove_circle_outline),
-                                            onPressed: () {
-                                              cart.updateItemQuantity(item.productId, item.quantity - 1);
-                                            },
-                                          ),
-                                          Text('${item.quantity}', style: const TextStyle(fontSize: 16)),
-                                          IconButton(
-                                            icon: const Icon(Icons.add_circle_outline),
-                                            onPressed: () {
-                                              cart.updateItemQuantity(item.productId, item.quantity + 1);
-                                            },
-                                          ),
-                                        ],
+
+                                      // Price column
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          '£${item.price.toStringAsFixed(2)}',
+                                          textAlign: TextAlign.center,
+                                          style: normalText,
+                                        ),
                                       ),
-                                      const SizedBox(width: 16),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text('£${(item.price * item.quantity).toStringAsFixed(2)}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                                          TextButton(
-                                            onPressed: () => cart.removeItem(item.productId),
-                                            child: const Text('Remove', style: TextStyle(color: Colors.red)),
-                                          ),
-                                        ],
+
+                                      // Quantity column (controls)
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(Icons.remove_circle_outline),
+                                              onPressed: () {
+                                                cart.updateItemQuantity(item.productId, item.quantity - 1);
+                                              },
+                                            ),
+                                            Text('${item.quantity}', style: const TextStyle(fontSize: 16)),
+                                            IconButton(
+                                              icon: const Icon(Icons.add_circle_outline),
+                                              onPressed: () {
+                                                cart.updateItemQuantity(item.productId, item.quantity + 1);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      // Total column + remove button
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              '£${(item.price * item.quantity).toStringAsFixed(2)}',
+                                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                            ),
+                                            TextButton(
+                                              onPressed: () => cart.removeItem(item.productId),
+                                              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
