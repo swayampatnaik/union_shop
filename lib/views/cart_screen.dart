@@ -365,7 +365,7 @@ class _CartScreenState extends State<CartScreen> {
                                             contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                                           ),
                                         ),
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 40),
 
                                         // totals stacked above buttons on mobile
                                         Text('Subtotal: £${cart.totalAmount.toStringAsFixed(2)}',
@@ -374,7 +374,7 @@ class _CartScreenState extends State<CartScreen> {
                                         const SizedBox(height: 12),
                                         const Text('Tax included and shipping calculated at checkout', 
                                           style: TextStyle(fontSize: 14)),
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 40),
 
                                         SizedBox(
                                           height: 44,
