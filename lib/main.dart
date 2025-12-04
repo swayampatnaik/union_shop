@@ -9,10 +9,18 @@ import 'package:union_shop/views/collections_screen.dart';
 import 'package:union_shop/views/selected_collection_screen.dart';
 import 'package:union_shop/views/personalisation_screen.dart';
 import 'package:union_shop/views/sign_in_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart.dart';
 
 
 void main() {
-  runApp(const UnionShopApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => Cart(),
+      child: const UnionShopApp(),
+    ),
+  );
 }
 
 class UnionShopApp extends StatelessWidget {
