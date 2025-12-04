@@ -302,7 +302,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     IconButton(
                                                       visualDensity: VisualDensity.compact,
                                                       padding: EdgeInsets.zero,
-                                                      icon: const Icon(Icons.remove_circle_outline, size: 20),
+                                                      icon: const Icon(Icons.remove, size: 20),
                                                       onPressed: () {
                                                         cart.updateItemQuantity(item.productId, item.quantity - 1);
                                                       },
@@ -314,7 +314,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     IconButton(
                                                       visualDensity: VisualDensity.compact,
                                                       padding: EdgeInsets.zero,
-                                                      icon: const Icon(Icons.add_circle_outline, size: 20),
+                                                      icon: const Icon(Icons.add, size: 20),
                                                       onPressed: () {
                                                         cart.updateItemQuantity(item.productId, item.quantity + 1);
                                                       },
@@ -349,7 +349,7 @@ class _CartScreenState extends State<CartScreen> {
 
                               const SizedBox(height: 50),
 
-                              // responsive totals + actions
+                              // Totals, note field, andbuttons
                               isMobile
                                   ? Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
