@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/views/header.dart';
 import 'package:union_shop/views/footer.dart';
 import 'package:union_shop/widgets/buttons.dart';
+import 'package:union_shop/models/cart.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -180,9 +182,23 @@ class _ProductPageState extends State<ProductPage> {
                   WhiteButton(
                     text: 'ADD TO CART',
                     onPressed: () {
-                      //final qty = int.tryParse(_qtyController.text) ?? 1;
-                      // placeholder behaviour: in a real app, add the product to the cart with the specified quantity
-                      Navigator.pushNamed(context, '/product'); // placeholder
+                      final qty = int.tryParse(_qtyController.text) ?? 1;
+                      const productId = 'p1';
+                      const title = 'Placeholder Product Name';
+                      const price = 15.00;
+
+                      final cart = Provider.of<Cart>(context, listen: false);
+                      cart.addItem(
+                        productId: productId,
+                        title: title,
+                        price: price,
+                        quantity: qty,
+                      );
+
+                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('$qty x "$title" added to cart')),
+                      );
                     },
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     height: 48,
