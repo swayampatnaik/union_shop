@@ -58,9 +58,23 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: [
                     SizedBox(
                       height: 35,
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                      child: Image.asset(
+                        'assets/images/sign_in_banner.png',
+                        width: 120,
+                        height: 120,
                         fit: BoxFit.contain,
+                        // prevent test failures when asset is not available by providing a graceful fallback
+                        errorBuilder: (context, error, stackTrace) {
+                          return SizedBox(
+                            width: 120,
+                            height: 120,
+                            child: Center(
+                              child: Icon(Icons.person, size: 48, color: Colors.grey[400]),
+                            ),
+                          );
+                        },
+                        // optional: helpful for accessibility / tests that look for semantics
+                        semanticLabel: 'Sign in banner',
                       ),
                     ),
                     const SizedBox(height: 40),
