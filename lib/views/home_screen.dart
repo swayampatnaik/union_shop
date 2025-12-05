@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           // responsive, centered grid with a maximum width
                         Builder(builder: (context) {
                           final width = MediaQuery.of(context).size.width;
-                          final crossAxisCount = width > 1200 ? 2 : (width > 900 ? 2 : 1);
+                          final crossAxisCount = width > 1200 ? 2 : (width > 700 ? 2 : 1);
                           // control how wide the grid gets on large screens
                           final gridMaxWidth = width > 1200 ? 1150.0 : (width > 900 ? 800.0 : double.infinity);
 
