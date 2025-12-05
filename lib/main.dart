@@ -11,6 +11,7 @@ import 'package:union_shop/views/personalisation_screen.dart';
 import 'package:union_shop/views/sign_in_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/views/sale_screen.dart';
 
 
 void main() {
@@ -49,6 +50,7 @@ class UnionShopApp extends StatelessWidget {
         '/selected_collection': (context) => const SelectedCollectionScreen(),
         '/personalisation': (context) => const PersonalisationScreen(),
         '/sign_in': (context) => const SignInScreen(),
+        '/sale': (context) => const SaleScreen(),
         },
     );
   }

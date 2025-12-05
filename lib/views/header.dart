@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/views/app_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart.dart';
+
 
 class Header extends StatefulWidget {
   // optional overrides — if null header will navigate using named routes
@@ -9,6 +12,7 @@ class Header extends StatefulWidget {
   final VoidCallback? onNavigateAbout;
   final VoidCallback? onNavigateCart;
   final VoidCallback? onNavigateSearch;
+  final VoidCallback? onNavigateSale;
 
   final VoidCallback? onToggleMenu;
   final VoidCallback placeholderCallbackForButtons;
@@ -21,7 +25,10 @@ class Header extends StatefulWidget {
     this.onNavigateSignIn,
     this.onNavigateCart,
     this.onNavigateSearch,
+    this.onNavigateSale,
     this.onToggleMenu,
+
+    
     required this.placeholderCallbackForButtons,
   });
 
@@ -276,6 +283,10 @@ class _HeaderState extends State<Header> {
     Navigator.pushNamed(context, '/search');
   }
 
+  void _defaultNavigateSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale');
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -298,6 +309,11 @@ class _HeaderState extends State<Header> {
 
         if (title == 'Shop') {
           Navigator.pushNamed(context, '/product');
+          return;
+        }
+
+        if (title == 'SALE!') {
+          Navigator.pushNamed(context, '/sale');
           return;
         }
       },
@@ -500,7 +516,10 @@ class _HeaderState extends State<Header> {
                                   ],
                                   child: const _HoverableMenuLabel(text: 'The Print Shack ▾'),
                                 ),
-                                _HoverableMenuLabel(text: 'SALE!', onTap: widget.placeholderCallbackForButtons),
+                                _HoverableMenuLabel(
+                                  text: 'SALE!',
+                                  onTap: widget.onNavigateSale ?? () => _defaultNavigateSale(context),
+                                ),
                                 _HoverableMenuLabel(
                                   text: 'About',
                                   onTap: () => (widget.onNavigateAbout != null) ? widget.onNavigateAbout!() : _defaultNavigateAbout(context),
@@ -541,7 +560,7 @@ class _HeaderState extends State<Header> {
                                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
                                               contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                               suffixIcon: IconButton(
-                                                icon: const Icon(Icons.search, size: 24),
+                                                icon: const Icon(Icons.search, size: 22),
                                                 onPressed: () {
                                                   final q = _searchController.text.trim();
                                                   if (q.isEmpty) {
@@ -565,28 +584,57 @@ class _HeaderState extends State<Header> {
                                         ),
                                       )
                                     : IconButton(
-                                        icon: const Icon(Icons.search, size: 30, color: Colors.black),
-                                        padding: const EdgeInsets.all(6),
-                                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                        icon: const Icon(Icons.search, size: 24, color: Colors.black),
+                                        padding: const EdgeInsets.all(4),
+                                        constraints: const BoxConstraints(minWidth: 25, minHeight: 22),
                                         onPressed: _toggleSearch,
                                       )),
                               IconButton(
-                                icon: const Icon(Icons.person_outline, size: 30, color: Colors.black),
-                                padding: const EdgeInsets.all(6),
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                icon: const Icon(Icons.person_outline, size: 24, color: Colors.black),
+                                padding: const EdgeInsets.all(5),
+                                constraints: const BoxConstraints(minWidth: 25, minHeight: 22),
                                 onPressed: () => (widget.onNavigateSignIn != null) ? widget.onNavigateSignIn!() : _defaultNavigateSignIn(context),
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.shopping_bag_outlined, size: 30, color: Colors.black),
-                                padding: const EdgeInsets.all(6),
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                onPressed: () => (widget.onNavigateCart != null) ? widget.onNavigateCart!() : _defaultNavigateCart(context),
-                              ),
+                              // Show cart icon with badge reflecting current cart quantity
+                              Consumer<Cart>(builder: (ctx, cart, _) {
+                                final count = cart.totalQuantity;
+                                return Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.shopping_bag_outlined, size: 24, color: Colors.black),
+                                      padding: const EdgeInsets.all(5),
+                                      constraints: const BoxConstraints(minWidth: 25, minHeight: 22),
+                                      onPressed: () => (widget.onNavigateCart != null) ? widget.onNavigateCart!() : _defaultNavigateCart(context),
+                                    ),
+                                    if (count > 0)
+                                      Positioned(
+                                        right: 2,
+                                        top: 2,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(2),
+                                          constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.redAccent,
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(color: Colors.white, width: 1.5),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              count > 99 ? '99+' : count.toString(),
+                                              style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              }),
                               if (!isWide)
                                 IconButton(
-                                  icon: const Icon(Icons.menu, size: 27, color: Colors.black),
-                                  padding: const EdgeInsets.all(6),
-                                  constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                  icon: const Icon(Icons.menu, size: 24, color: Colors.black),
+                                  padding: const EdgeInsets.all(5),
+                                  constraints: const BoxConstraints(minWidth: 25, minHeight: 22),
                                   onPressed: () {
                                     if (widget.onToggleMenu != null) {
                                       widget.onToggleMenu!();
