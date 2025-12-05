@@ -233,14 +233,14 @@ class _HeaderState extends State<Header> {
         ),
         const Divider(height: 1),
         InkWell(
-          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/about')),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
             child: Row(children: [Text('About', style: TextStyle(fontSize: 16))]),
           ),
         ),
         InkWell(
-          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/')),
+          onTap: () => _closeOverlayAndNavigate(() => Navigator.pushNamed(context, '/personalisation')),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
             child: Row(children: [Text('Personalisation', style: TextStyle(fontSize: 16))]),
